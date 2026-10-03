@@ -40,6 +40,9 @@
         <button id="btn-manage-env" class="btn-icon" title="Manage Environments & Variables">⚙️</button>
       </div>
 
+      <button id="btn-open-trophies" class="btn btn-secondary" title="View unlocked Developer Achievements & Badges">
+        <span class="icon">🏆</span> Trophies
+      </button>
       <button id="btn-open-auto-house" class="btn btn-arcade" title="Auto-Generate a complete Game House from API lists or Workspace">
         <span class="icon">🏰</span> Auto-Build House
       </button>
@@ -51,6 +54,15 @@
       </button>
     </div>
   </header>
+
+  <!-- Co-op Multiplayer Live Ticker -->
+  <div class="coop-bar">
+    <div class="coop-status"><span class="live-dot"></span> CO-OP ARENA:</div>
+    <div id="coop-live-feed" class="coop-feed">
+      <div class="coop-event-pill"><span class="coop-time">[LOBBY]</span> Connected to Game House room. Ready for co-op quest.</div>
+    </div>
+    <button id="btn-coop-ping" class="btn-xs">📣 Party Ping</button>
+  </div>
 
   <!-- Main Container -->
   <div class="main-layout">
@@ -97,12 +109,15 @@
 
         <div class="api-name-bar">
           <input type="text" id="req-name" class="name-input" placeholder="Untitled Request">
-          <div class="format-chips">
-            <button class="chip-btn active" data-format-tab="builder">Builder</button>
-            <button class="chip-btn" data-format-tab="curl">cURL</button>
-            <button class="chip-btn" data-format-tab="http">HTTP Raw</button>
-            <button class="chip-btn" data-format-tab="fetch">JS Fetch</button>
-            <button class="chip-btn" data-format-tab="python">Python</button>
+          <div style="display:flex; align-items:center; gap:8px;">
+            <button id="btn-fuzz-sidequests" class="btn-xs btn-arcade" title="Generate 3 automated boundary fuzzing side quests">🎯 Side Quests (Fuzz)</button>
+            <div class="format-chips">
+              <button class="chip-btn active" data-format-tab="builder">Builder</button>
+              <button class="chip-btn" data-format-tab="curl">cURL</button>
+              <button class="chip-btn" data-format-tab="http">HTTP Raw</button>
+              <button class="chip-btn" data-format-tab="fetch">JS Fetch</button>
+              <button class="chip-btn" data-format-tab="python">Python</button>
+            </div>
           </div>
         </div>
 
@@ -199,6 +214,9 @@
             <p class="subtitle">Autonomous DAG solver detects login prerequisites, token extracts, and executes game API cycles.</p>
           </div>
           <div class="workflow-actions">
+            <label class="enrage-toggle" title="Inject chaos: random delays, 429 rate limits, and 500 server crashes to test game resilience">
+              <input type="checkbox" id="toggle-boss-enrage"> ⚔️ Boss Enrage Mode
+            </label>
             <button id="btn-analyze-dag" class="btn btn-secondary">⚡ Re-Analyze Graph</button>
             <button id="btn-run-workflow" class="btn btn-primary">▶ Run Full Quest Pipeline</button>
           </div>
@@ -238,7 +256,15 @@
         <!-- Workflow execution console -->
         <div class="workflow-console">
           <div class="pane-subheader">
-            <span>Execution Terminal & Variable State</span>
+            <div style="display:flex; align-items:center; gap:10px;">
+              <span>Execution Terminal & Variable State</span>
+              <div id="replay-scrubber-bar" class="replay-bar hidden">
+                <span style="font-size:10px; color:var(--accent-purple);">📼 TIME-TRAVEL:</span>
+                <input type="range" id="replay-scrubber-input" min="0" max="0" value="0">
+                <span id="replay-frame-info" style="font-size:10px; color:var(--text-muted);">Frame 0</span>
+                <button id="btn-export-replay-tape" class="btn-xs">💾 Export Tape</button>
+              </div>
+            </div>
             <span id="workflow-run-status" class="status-badge status-idle">Idle</span>
           </div>
           <div id="workflow-log-output" class="terminal-box">
@@ -397,6 +423,27 @@
       <div class="modal-footer">
         <button class="btn btn-secondary" data-close="modal-auto-house">Cancel</button>
         <button id="btn-do-build-house" class="btn btn-arcade">⚡ Spawn Game House</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- Trophies & Badges Modal -->
+  <div id="modal-trophies" class="modal-overlay hidden">
+    <div class="modal-card">
+      <div class="modal-header">
+        <h3>🏆 Developer Achievements & Trophies</h3>
+        <button class="btn-close" data-close="modal-trophies">✕</button>
+      </div>
+      <div class="modal-body">
+        <p class="subtitle" style="font-size:12px; color:var(--text-muted); margin-bottom:12px;">
+          Unlock achievements by maintaining high agility, testing secure gates, defeating raid bosses, and surviving Boss Enrage mode!
+        </p>
+        <div id="trophies-list" class="trophies-list">
+          <!-- Rendered by JS -->
+        </div>
+      </div>
+      <div class="modal-footer">
+        <button class="btn btn-secondary" data-close="modal-trophies">Close</button>
       </div>
     </div>
   </div>

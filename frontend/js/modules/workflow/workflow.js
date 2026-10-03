@@ -93,11 +93,17 @@ export class WorkflowManager {
     this.runStatus.textContent = 'Executing...';
     this.logOutput.textContent = `[QUEST RUNNER] Initializing Game API Pipeline for collection #${colId}...\n`;
 
+    const isEnraged = document.getElementById('toggle-boss-enrage') ? document.getElementById('toggle-boss-enrage').checked : false;
+
     try {
-      const result = await apiClient.runWorkflow(colId);
+      const result = await apiClient.runWorkflow(colId, {
+        chaos_mode: isEnraged,
+        chaos_level: 'medium',
+        actor: 'Hero_Dev'
+      });
       
       let log = `=== GAME API QUEST COMPLETED ===\n`;
-      log += `Total Steps: ${result.total_steps}\n`;
+      log += `Total Steps: ${result.total_steps} | Chaos Enrage: ${result.chaos_mode ? 'ON ⚔️' : 'OFF'}\n`;
       log += `Timestamp: ${new Date().toLocaleTimeString()}\n\n`;
 
       result.steps.forEach(step => {
@@ -131,8 +137,23 @@ export class WorkflowManager {
 
       this.logOutput.textContent = log;
       this.runStatus.className = 'status-badge status-2xx';
-      this.runStatus.textContent = 'ALL PASSED';
+      this.runStatus.textContent = 'RUN FINISHED';
       this.app.showToast(`Quest finished: ${result.total_steps} steps executed`, 'success');
+
+      // Trophies check
+      if (this.app.trophies && result.new_trophies) {
+        this.app.trophies.notifyNewTrophies(result.new_trophies);
+      }
+
+      // Replay frames check
+      if (this.app.replay) {
+        this.app.replay.loadSessionFrames();
+      }
+
+      // Vitals check
+      if (this.app.house) {
+        this.app.house.refreshVitals(colId);
+      }
 
     } catch (err) {
       this.runStatus.className = 'status-badge status-5xx';

@@ -49,6 +49,22 @@ export class Studio {
     this.btnAddExtract.addEventListener('click', () => this.addExtractRow('', 'body_json', ''));
     this.btnBeautify.addEventListener('click', () => this.beautifyJson());
 
+    const btnFuzz = document.getElementById('btn-fuzz-sidequests');
+    if (btnFuzz) {
+      btnFuzz.addEventListener('click', async () => {
+        if (!this.currentRequest || !this.currentRequest.id) {
+          return this.app.showToast('Select an API first to generate side quests', 'error');
+        }
+        try {
+          const res = await apiClient.generateSideQuests(this.currentRequest.id);
+          this.app.showToast(`🎯 Spawned 3 boundary Side Quests! (+600 Potential XP)`, 'success');
+          await this.app.explorer.loadData();
+        } catch (err) {
+          this.app.showToast(`Fuzzing failed: ${err.message}`, 'error');
+        }
+      });
+    }
+
     // Copy handlers
     this.btnCopyReqBody.addEventListener('click', () => this.copyToClipboard(this.bodyText.value, 'Request body copied'));
     this.btnCopyResBody.addEventListener('click', () => this.copyToClipboard(this.resBodyCode.textContent, 'Response body copied'));

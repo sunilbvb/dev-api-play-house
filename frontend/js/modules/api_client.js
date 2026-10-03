@@ -76,4 +76,12 @@ export const apiClient = {
   // Game House Auto-Architect & Vitals
   autoBuildHouse: (payload) => request('/api/house/auto-build', { method: 'POST', body: payload }),
   getHouseVitals: (collectionId) => request(`/api/house/${collectionId}/vitals`),
+
+  // Gamification & Features
+  getTrophies: () => request('/api/trophies'),
+  getCoopEvents: (sinceId = 0) => request(`/api/coop/events?since_id=${sinceId}`),
+  postCoopEvent: (actor, message) => request('/api/coop/events', { method: 'POST', body: { actor, message } }),
+  generateSideQuests: (requestId) => request('/api/fuzzer/generate-side-quests', { method: 'POST', body: { request_id: requestId } }),
+  getReplayFrames: () => request('/api/replay/frames'),
+  exportReplayTape: () => request('/api/replay/export', { method: 'POST' }),
 };

@@ -53,3 +53,25 @@ flowchart TD
   - `workflow/workflow.js`: Interactive quest pipeline visualizer and runner.
   - `importer/importer.js`: Modal for pasting commands or uploading definitions.
   - `exporter/exporter.js`: Modal for exporting single or batched APIs into 5 formats.
+  - `house/house_manager.js`: Auto-architect engine and HUD vitals monitor.
+  - `trophies/trophy_manager.js`: Gamified achievement evaluator and modal viewer.
+  - `coop/coop_manager.js`: Local multiplayer live event ticker.
+  - `replay/replay_manager.js`: Interactive time-travel execution scrubber and tape exporter.
+
+### 5. Chaos Monkey Engine (`backend/chaos/`)
+- Injects latency, 429 rate-limiting, and 500 server crashes to test client resilience during Boss Enrage mode.
+
+### 6. Sandbox Mock Server (`backend/sandbox/`)
+- Zero-backend dynamic game simulation under `/mock/*` returning tokens, characters, and loot drops.
+
+### 7. Headless CI Runner (`backend/cli/`)
+- Direct command-line execution (`python3 app.py --cli`) evaluating House HP against threshold targets for CI/CD gates.
+
+### 8. Fuzzing & Side Quests (`backend/fuzzer/`)
+- Generates automated boundary stress tests (*Ghost Attack*, *Armor Pierce*, *Overclock Sprint*).
+
+### 9. Time-Travel Replay (`backend/replay/`)
+- Frame checkpoint recorder and exportable replay tapes for deterministic bug reproduction.
+
+### 10. Trophies & Gamification (`backend/trophies/`)
+- Real-time achievement evaluator awarding developer XP and badges based on test performance.

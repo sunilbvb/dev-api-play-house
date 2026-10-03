@@ -22,38 +22,42 @@
    - Automatically partitions APIs into 4 Game Rooms (The Citadel Gates, The Armory, The Coliseum, The Vault).
    - Spawns a **Raid Boss**, assigns XP rewards, tracks live **House HP**, and evaluates victory conditions.
 
-3. **Multi-Environment State & Secret Vault**:
-   - Seamless switching between `Development`, `Staging`, and `Production`.
-   - Variable interpolation engine with support for `{{variable_name}}` and dynamic generators (`{{$guid}}`, `{{$timestamp}}`, `{{$randomInt}}`).
+4. **⚔️ Boss Enrage Mode (API Chaos Engine)**:
+   - Simulates network lag spikes, rate-limit triggers (429), and internal server crashes (500) to verify client resilience.
 
-4. **Multi-Format Studio & Exporter**:
-   - Toggle instantly between **Builder**, **cURL**, **RFC .http**, **JavaScript fetch**, and **Python urllib** views.
-   - 1-click copy buttons for request payloads, response payloads, headers, and code snippets.
-   - Export single APIs or batch collections to Postman v2.1 JSON or `.http` files.
+5. **🕹️ Offline Mock Game Server**:
+   - Dynamic simulation endpoints under `/mock/*` for developing games without active backend dependencies.
 
-5. **Zero External Dependencies**:
-   - Pure Python standard library backend (built on `http.server`, `urllib`, `sqlite3`). No `pip install` required!
-   - Pure Vanilla ES6 JavaScript frontend.
+6. **🤖 Headless CI/CD Quest Runner**:
+   - Run API suites directly inside GitHub Actions or CI pipelines with `python3 app.py --cli --min-hp 80`.
+
+7. **👥 Co-op Multiplayer Live Ticker**:
+   - Live event stream showing party executions, token loots, and teammate pings.
+
+8. **🎯 Boundary & Security Side Quests**:
+   - 1-click fuzzing generator producing *Ghost Attack* (empty body), *Armor Pierce* (injection fuzz), and *Speed Sprint* stress tests.
+
+9. **📼 Time-Travel Replay & Tape Exporter**:
+   - Scrub through execution frame checkpoints and export session tapes for instant bug reproduction.
+
+10. **🏆 Developer Trophies & Badges**:
+   - Gamified developer experience with unlockable badges (*Speed Demon*, *Iron Gatekeeper*, *Dragon Slayer*, *Chaos Survivor*).
 
 ---
 
 ## ⚡ Quick Start
 
+### 1. Interactive Web Studio
 ```bash
-# Clone the repository
-git clone https://github.com/your-username/dev-api-play-house.git
-cd dev-api-play-house
-
-# Run the server (Python 3.8+ built-in)
+# Run server (Python 3.8+ built-in, zero pip installs)
 python3 app.py
 ```
+Open your browser at: 👉 **`http://localhost:8000`**
 
-Open your browser to:
-👉 **`http://localhost:8000`**
-
-To customize the port or host:
+### 2. Headless CI/CD Mode
 ```bash
-PORT=8080 HOST=127.0.0.1 python3 app.py
+# Run headless quest integrity check in CI pipeline
+python3 app.py --cli --collection 1 --min-hp 70
 ```
 
 ---

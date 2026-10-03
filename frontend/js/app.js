@@ -5,6 +5,9 @@ import { WorkflowManager } from './modules/workflow/workflow.js';
 import { Importer } from './modules/importer/importer.js';
 import { Exporter } from './modules/exporter/exporter.js';
 import { HouseManager } from './modules/house/house_manager.js';
+import { TrophyManager } from './modules/trophies/trophy_manager.js';
+import { CoopManager } from './modules/coop/coop_manager.js';
+import { ReplayManager } from './modules/replay/replay_manager.js';
 
 class App {
   constructor() {
@@ -18,6 +21,9 @@ class App {
     this.importer = new Importer(this);
     this.exporter = new Exporter(this);
     this.house = new HouseManager(this);
+    this.trophies = new TrophyManager(this);
+    this.coop = new CoopManager(this);
+    this.replay = new ReplayManager(this);
 
     this.initNavigation();
   }

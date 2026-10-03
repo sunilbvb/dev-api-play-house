@@ -47,3 +47,26 @@ The backend exposes the following REST endpoints:
 |---|---|---|
 | `POST` | `/api/house/auto-build` | Automatically partition raw API list or workspace into themed Game House with rooms, quests, and Raid Boss |
 | `GET` | `/api/house/{id}/vitals` | Retrieve live Game House HP, average agility, XP rewards, and Boss status |
+
+## 6. Offline Mock Game Server
+
+| Method | Endpoint | Description |
+|---|---|---|
+| `GET / POST` | `/mock/*` | Dynamic zero-backend offline simulator returning realistic game payloads (auth tokens, player profiles, raid loot, leaderboards) |
+
+## 7. Gamification, Trophies & Chaos
+
+| Method | Endpoint | Description |
+|---|---|---|
+| `GET` | `/api/trophies` | List all developer achievements and unlock statuses |
+| `POST` | `/api/fuzzer/generate-side-quests` | Generate 3 boundary & security fuzzing side quests (`{"request_id": 1}`) |
+| `POST` | `/api/workflows/run` | Execute pipeline with optional `{"chaos_mode": true, "chaos_level": "medium"}` |
+
+## 8. Co-op Arena & Time-Travel Replay
+
+| Method | Endpoint | Description |
+|---|---|---|
+| `GET` | `/api/coop/events?since_id={id}` | Poll live co-op activity feed from team members |
+| `POST` | `/api/coop/events` | Broadcast party message or ping (`{"message": "Ready!", "actor": "Dev"}`) |
+| `GET` | `/api/replay/frames` | Retrieve recorded session checkpoints for timeline scrubber |
+| `POST` | `/api/replay/export` | Download full `.json` replay session tape |

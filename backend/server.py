@@ -22,6 +22,12 @@ from .engine import (
     auto_generate_game_house,
     THEMES
 )
+from .chaos import ChaosEngine
+from .sandbox import MockGameServer
+from .coop import CoopHub
+from .fuzzer import SideQuestGenerator
+from .replay import ReplayRecorder
+from .trophies import TrophyEngine
 from .exporters import (
     to_curl,
     to_http_raw,
@@ -68,6 +74,16 @@ class PlayhouseRequestHandler(http.server.SimpleHTTPRequestHandler):
         parsed = urllib.parse.urlparse(self.path)
         path = parsed.path
         query = urllib.parse.parse_qs(parsed.query)
+
+        if path.startswith("/mock/"):
+            mock_res = MockGameServer.generate_response("GET", path)
+            self.send_response(mock_res["status_code"])
+            for hk, hv in mock_res["headers"].items():
+                self.send_header(hk, hv)
+            self.send_header("Access-Control-Allow-Origin", "*")
+            self.end_headers()
+            self.wfile.write(mock_res["body"].encode("utf-8"))
+            return
 
         if not path.startswith("/api/"):
             # Serve frontend static assets
@@ -145,6 +161,16 @@ class PlayhouseRequestHandler(http.server.SimpleHTTPRequestHandler):
                     "boss_defeated": hp > 50 and successes >= len(reqs) and len(reqs) > 0
                 })
 
+            elif path == "/api/trophies":
+                self._send_json(TrophyEngine.get_all_trophies())
+
+            elif path == "/api/coop/events":
+                since_id = int(query.get("since_id", [0])[0])
+                self._send_json(CoopHub.get_events(since_id))
+
+            elif path == "/api/replay/frames":
+                self._send_json(ReplayRecorder.get_frames())
+
             else:
                 self._send_json({"error": "Endpoint not found"}, status=404)
         finally:
@@ -154,6 +180,17 @@ class PlayhouseRequestHandler(http.server.SimpleHTTPRequestHandler):
         parsed = urllib.parse.urlparse(self.path)
         path = parsed.path
         body = self._read_body_json()
+
+        if path.startswith("/mock/"):
+            body_raw = json.dumps(body) if body else ""
+            mock_res = MockGameServer.generate_response("POST", path, body_raw)
+            self.send_response(mock_res["status_code"])
+            for hk, hv in mock_res["headers"].items():
+                self.send_header(hk, hv)
+            self.send_header("Access-Control-Allow-Origin", "*")
+            self.end_headers()
+            self.wfile.write(mock_res["body"].encode("utf-8"))
+            return
 
         conn = get_connection()
         cursor = conn.cursor()
@@ -379,41 +416,79 @@ class PlayhouseRequestHandler(http.server.SimpleHTTPRequestHandler):
                         pass
                 variables.update(body.get("runtime_variables", {}))
 
+                chaos_mode = body.get("chaos_mode", False)
+                chaos_level = body.get("chaos_level", "medium")
+                actor = body.get("actor", "Player 1")
+
+                ReplayRecorder.clear()
                 step_results = []
                 for idx, req_item in enumerate(ordered, 1):
-                    res = execute_request(
-                        method=req_item.get("method", "GET"),
-                        url=req_item.get("url", ""),
-                        headers=req_item.get("headers", {}),
-                        body=req_item.get("body", ""),
-                        variables=variables
-                    )
-                    # Extract variables
-                    new_vars = extract_variables(
-                        extract_rules=req_item.get("extracts", []),
-                        status_code=res["status_code"],
-                        headers=res["headers"],
-                        response_body=res["body"]
-                    )
-                    variables.update(new_vars)
+                    # Check for chaos injection
+                    chaotic_resp = None
+                    if chaos_mode:
+                        chaotic_resp = ChaosEngine.apply_chaos(req_item, chaos_level=chaos_level)
+
+                    if chaotic_resp:
+                        res = chaotic_resp
+                    else:
+                        res = execute_request(
+                            method=req_item.get("method", "GET"),
+                            url=req_item.get("url", ""),
+                            headers=req_item.get("headers", {}),
+                            body=req_item.get("body", ""),
+                            variables=variables
+                        )
+
+                    # Extract variables if successful
+                    new_vars = {}
+                    if 200 <= (res.get("status_code") or 0) < 300:
+                        new_vars = extract_variables(
+                            extract_rules=req_item.get("extracts", []),
+                            status_code=res["status_code"],
+                            headers=res["headers"],
+                            response_body=res["body"]
+                        )
+                        variables.update(new_vars)
                     
-                    step_results.append({
+                    step_data = {
                         "step": idx,
                         "request_id": req_item.get("id"),
                         "name": req_item.get("name"),
                         "method": req_item.get("method"),
-                        "url": res["sent"]["url"],
+                        "url": res["sent"]["url"] if "sent" in res and "url" in res["sent"] else req_item.get("url"),
                         "status_code": res["status_code"],
                         "elapsed_ms": res["elapsed_ms"],
                         "extracted": new_vars,
                         "error": res.get("error")
-                    })
+                    }
+                    step_results.append(step_data)
+
+                    # Time-travel recording
+                    ReplayRecorder.record_frame(idx, req_item, res, dict(variables))
+
+                # Evaluate newly unlocked trophies
+                run_payload = {
+                    "steps": step_results,
+                    "final_variables": variables,
+                    "chaos_mode": chaos_mode
+                }
+                newly_unlocked = TrophyEngine.evaluate(run_payload)
+
+                # Broadcast to Co-op Hub
+                CoopHub.publish(
+                    "quest_complete",
+                    actor,
+                    f"Completed quest pipeline with {len(step_results)} stages (Chaos: {chaos_mode})",
+                    {"total_steps": len(step_results), "unlocked_count": len(newly_unlocked)}
+                )
 
                 self._send_json({
                     "workflow_status": "completed",
                     "total_steps": len(step_results),
                     "final_variables": variables,
-                    "steps": step_results
+                    "steps": step_results,
+                    "chaos_mode": chaos_mode,
+                    "new_trophies": newly_unlocked
                 })
 
             elif path == "/api/export":
@@ -482,6 +557,43 @@ class PlayhouseRequestHandler(http.server.SimpleHTTPRequestHandler):
                 conn.commit()
                 house["collection_id"] = col_id
                 self._send_json(house, status=201)
+
+            elif path == "/api/coop/events":
+                msg = body.get("message", "Ping")
+                actor = body.get("actor", "Player")
+                ev = CoopHub.publish("chat", actor, msg)
+                self._send_json(ev, status=201)
+
+            elif path == "/api/replay/export":
+                self._send_json({"tape": ReplayRecorder.export_session()})
+
+            elif path == "/api/fuzzer/generate-side-quests":
+                req_id = body.get("request_id")
+                cursor.execute("SELECT * FROM requests WHERE id = ?", (req_id,))
+                row = cursor.fetchone()
+                if not row:
+                    return self._send_json({"error": "Request not found"}, status=404)
+                req_data = dict(row)
+                req_data["headers"] = json.loads(req_data.get("headers_json", "{}") or "{}")
+                quests = SideQuestGenerator.generate_quests(req_data)
+
+                for q in quests:
+                    cursor.execute("""
+                    INSERT INTO requests (collection_id, name, method, url, headers_json, body, body_type, order_idx, extracts_json)
+                    VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?)
+                    """, (
+                        req_data["collection_id"],
+                        q["name"],
+                        q.get("method", "GET"),
+                        q.get("url", ""),
+                        json.dumps(q.get("headers", {})),
+                        q.get("body", ""),
+                        q.get("body_type", "json"),
+                        q.get("order_idx", 900),
+                        "[]"
+                    ))
+                conn.commit()
+                self._send_json({"status": "generated", "side_quests": [q["name"] for q in quests]}, status=201)
 
             else:
                 self._send_json({"error": "Endpoint not found"}, status=404)

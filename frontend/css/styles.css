@@ -1040,4 +1040,155 @@ pre code {
   to { opacity: 1; transform: translateY(0); }
 }
 
+/* Co-op Multiplayer Ticker */
+.coop-bar {
+  background: #090d13;
+  border-bottom: 1px solid var(--border-color);
+  padding: 4px 16px;
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  font-size: 11px;
+}
+.coop-status {
+  font-weight: 800;
+  color: var(--accent-cyan);
+  display: flex;
+  align-items: center;
+  gap: 6px;
+}
+.live-dot {
+  width: 7px;
+  height: 7px;
+  background: var(--accent-green);
+  border-radius: 50%;
+  box-shadow: 0 0 6px var(--accent-green);
+  animation: pulse 1.5s infinite;
+}
+@keyframes pulse {
+  0% { opacity: 0.4; }
+  50% { opacity: 1; }
+  100% { opacity: 0.4; }
+}
+.coop-feed {
+  flex: 1;
+  display: flex;
+  gap: 10px;
+  overflow: hidden;
+  white-space: nowrap;
+}
+.coop-event-pill {
+  background: var(--bg-card);
+  padding: 2px 8px;
+  border-radius: 4px;
+  border: 1px solid var(--border-color);
+  color: var(--text-main);
+}
+.coop-time {
+  color: var(--accent-purple);
+  font-family: var(--font-mono);
+  margin-right: 4px;
+}
+
+/* Enrage Toggle */
+.enrage-toggle {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  background: rgba(255, 0, 127, 0.1);
+  border: 1px solid rgba(255, 0, 127, 0.3);
+  padding: 4px 10px;
+  border-radius: 6px;
+  color: var(--accent-arcade);
+  font-weight: 700;
+  font-size: 11px;
+  cursor: pointer;
+}
+.enrage-toggle:hover {
+  background: rgba(255, 0, 127, 0.2);
+}
+
+/* Time Travel Replay */
+.replay-bar {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  background: var(--bg-dark);
+  border: 1px solid var(--border-color);
+  padding: 2px 8px;
+  border-radius: 4px;
+}
+.replay-bar input[type="range"] {
+  width: 90px;
+  cursor: pointer;
+}
+
+/* Trophies & Badges */
+.trophies-list {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+.trophy-card {
+  display: flex;
+  align-items: center;
+  gap: 14px;
+  background: var(--bg-card);
+  border: 1px solid var(--border-color);
+  padding: 12px 14px;
+  border-radius: 8px;
+  transition: all 0.2s;
+}
+.trophy-card.unlocked {
+  border-color: rgba(210, 153, 34, 0.5);
+  box-shadow: 0 0 12px rgba(210, 153, 34, 0.15);
+}
+.trophy-card.locked {
+  opacity: 0.5;
+  filter: grayscale(0.8);
+}
+.trophy-icon {
+  font-size: 26px;
+  width: 44px;
+  height: 44px;
+  border-radius: 50%;
+  background: var(--bg-dark);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border: 1px solid var(--border-color);
+}
+.trophy-details {
+  flex: 1;
+}
+.trophy-title {
+  display: flex;
+  justify-content: space-between;
+  font-weight: 700;
+  font-size: 13px;
+  color: var(--text-bright);
+}
+.trophy-xp {
+  color: var(--accent-orange);
+  font-family: var(--font-mono);
+  font-size: 11px;
+}
+.trophy-desc {
+  font-size: 11px;
+  color: var(--text-muted);
+  margin-top: 2px;
+}
+.trophy-badge-status {
+  margin-top: 4px;
+  font-size: 10px;
+  font-weight: 800;
+  font-family: var(--font-mono);
+}
+.trophy-card.unlocked .trophy-badge-status {
+  color: var(--accent-green);
+}
+.trophy-card.locked .trophy-badge-status {
+  color: var(--text-muted);
+}
+
 .hidden { display: none !important; }
