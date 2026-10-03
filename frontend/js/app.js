@@ -10,6 +10,7 @@ import { CoopManager } from './modules/coop/coop_manager.js';
 import { ReplayManager } from './modules/replay/replay_manager.js';
 import { DocManager } from './modules/docs/doc_manager.js';
 import { AdvisorManager } from './modules/advisor/advisor_manager.js';
+import { RealtimeStudio } from './modules/realtime/realtime_studio.js';
 
 class App {
   constructor() {
@@ -28,6 +29,7 @@ class App {
     this.replay = new ReplayManager(this);
     this.docs = new DocManager(this);
     this.advisor = new AdvisorManager(this);
+    this.realtime = new RealtimeStudio(this);
 
     this.initNavigation();
   }

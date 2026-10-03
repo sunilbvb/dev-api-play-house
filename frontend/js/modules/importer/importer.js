@@ -37,6 +37,8 @@ export class Importer {
           this.contentInput.placeholder = "### Login Request\nPOST https://api.game.io/v1/login\nContent-Type: application/json\n\n{\"user\":\"neo\"}\n\n### Get Stats\nGET https://api.game.io/v1/stats";
         } else if (this.activeType === 'markdown') {
           this.contentInput.placeholder = "# Game API Docs\n\nRun this cURL:\n```bash\ncurl -X GET https://api.game.io/characters\n```";
+        } else if (this.activeType === 'openapi') {
+          this.contentInput.placeholder = "Paste OpenAPI 3.0 / 3.1 or Swagger 2.0 (JSON) specification here...";
         }
       });
     });

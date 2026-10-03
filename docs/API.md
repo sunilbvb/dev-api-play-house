@@ -36,7 +36,7 @@ The backend exposes the following REST endpoints:
 
 | Method | Endpoint | Description |
 |---|---|---|
-| `POST` | `/api/import` | Ingest cURL, Postman JSON, .http file, or Markdown |
+| `POST` | `/api/import` | Ingest cURL, Postman JSON, OpenAPI / Swagger (v2, v3, v3.1), .http file, or Markdown |
 | `POST` | `/api/export` | Convert requests to cURL, .http, fetch, python, or Postman |
 | `GET` | `/api/history` | View the last 50 executed requests |
 | `GET` | `/api/health` | Health check endpoint |

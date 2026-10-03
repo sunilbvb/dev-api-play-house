@@ -1266,4 +1266,64 @@ pre code {
   text-align: right;
 }
 
+/* Real-Time WebSocket & SSE Live Stream Styles */
+.rt-messages-box {
+  flex: 1;
+  padding: 10px;
+  overflow-y: auto;
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  background: var(--bg-dark);
+}
+
+.rt-msg-item {
+  background: var(--bg-surface);
+  border: 1px solid var(--border-color);
+  border-radius: 6px;
+  padding: 8px 10px;
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+}
+.rt-msg-in {
+  border-left: 3px solid var(--accent-cyan);
+}
+.rt-msg-out {
+  border-left: 3px solid var(--accent-green);
+}
+.rt-msg-system {
+  border-left: 3px solid var(--text-muted);
+}
+.rt-msg-error {
+  border-left: 3px solid var(--accent-red);
+}
+
+.rt-msg-meta {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  font-size: 10px;
+}
+.rt-msg-badge {
+  font-family: var(--font-mono);
+  font-weight: 800;
+  padding: 1px 4px;
+  border-radius: 3px;
+  background: var(--bg-card);
+}
+.rt-msg-in .rt-msg-badge { color: var(--accent-cyan); }
+.rt-msg-out .rt-msg-badge { color: var(--accent-green); }
+.rt-msg-time {
+  color: var(--text-muted);
+  font-family: var(--font-mono);
+}
+.rt-msg-body {
+  font-family: var(--font-mono);
+  font-size: 11px;
+  white-space: pre-wrap;
+  word-break: break-all;
+  color: var(--text-bright);
+}
+
 .hidden { display: none !important; }

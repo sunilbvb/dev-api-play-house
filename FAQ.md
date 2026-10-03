@@ -12,6 +12,7 @@ The system inspects each API's endpoint name, URL pattern, and token requirement
 If an endpoint declares an extraction rule (e.g., extracting `jwt_token` from response body) and another endpoint uses `{{jwt_token}}` in its header, the DAG engine automatically ensures the producer executes before the consumer.
 
 ### 3. Which formats can be imported?
+- **OpenAPI & Swagger**: OpenAPI 3.0, 3.1, or Swagger 2.0 JSON specifications.
 - **cURL commands**: Single or multi-line commands with `-H`, `-X`, `-d`, `--data-raw`, etc.
 - **Postman Collections (v2 / v2.1)**: Full JSON export.
 - **Postman Environments**: Key-value JSON environment exports.

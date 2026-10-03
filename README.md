@@ -7,6 +7,7 @@
 ## 🚀 Key Features
 
 1. **Multi-Format Ingestion Engine**:
+   - **OpenAPI & Swagger**: Drag-and-drop or paste OpenAPI 3.0, 3.1, or Swagger 2.0 specs.
    - **cURL Commands**: Paste any single or multi-line cURL.
    - **Postman Collections (v2 / v2.1)**: Full JSON parser with nested folder resolution and environment files.
    - **RFC 7230 `.http` / `.rest` Files**: Ingest files separated by `###` delimiters.
@@ -42,6 +43,9 @@
 
 10. **🏆 Developer Trophies & Badges**:
    - Gamified developer experience with unlockable badges (*Speed Demon*, *Iron Gatekeeper*, *Dragon Slayer*, *Chaos Survivor*).
+
+11. **📡 Real-Time WebSocket & SSE Live Studio**:
+   - Native client for testing bidirectional game socket frames (`ws://`, `wss://`) and server-sent event streams with live traffic monitor and 1-click ping.
 
 ---
 

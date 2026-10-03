@@ -57,6 +57,9 @@ flowchart TD
   - `trophies/trophy_manager.js`: Gamified achievement evaluator and modal viewer.
   - `coop/coop_manager.js`: Local multiplayer live event ticker.
   - `replay/replay_manager.js`: Interactive time-travel execution scrubber and tape exporter.
+  - `docs/doc_manager.js`: Auto-documentation generator and markdown viewer.
+  - `advisor/advisor_manager.js`: Strategy advisor and multi-way test matrix runner.
+  - `realtime/realtime_studio.js`: Live WebSocket and Server-Sent Events traffic studio.
 
 ### 5. Chaos Monkey Engine (`backend/chaos/`)
 - Injects latency, 429 rate-limiting, and 500 server crashes to test client resilience during Boss Enrage mode.
@@ -75,3 +78,9 @@ flowchart TD
 
 ### 10. Trophies & Gamification (`backend/trophies/`)
 - Real-time achievement evaluator awarding developer XP and badges based on test performance.
+
+### 11. Auto-Documentation Generator (`backend/docs_generator/`)
+- Auto-extracts parameters, headers, schema models, status codes, and QA checklists into GitHub Markdown.
+
+### 12. Test Strategy Advisor (`backend/advisor/`)
+- Inspects endpoints and calculates the exact count of critical test scenarios (6-8 dimensions) and grades each execution.

@@ -11,7 +11,8 @@ from .parsers import (
     parse_postman_collection,
     parse_postman_environment,
     parse_http_file,
-    parse_markdown
+    parse_markdown,
+    parse_openapi
 )
 from .engine import (
     execute_request,
@@ -279,6 +280,15 @@ class PlayhouseRequestHandler(http.server.SimpleHTTPRequestHandler):
 
                 elif import_type == "markdown":
                     imported_requests = parse_markdown(content)
+
+                elif import_type == "openapi":
+                    try:
+                        spec_obj = json.loads(content)
+                        parsed_spec = parse_openapi(spec_obj)
+                        imported_requests = parsed_spec.get("requests", [])
+                        collection_name = parsed_spec.get("name") or collection_name
+                    except Exception as e:
+                        return self._send_json({"error": f"Failed to parse OpenAPI JSON: {str(e)}"}, status=400)
 
                 # Persist imported requests
                 saved_count = 0

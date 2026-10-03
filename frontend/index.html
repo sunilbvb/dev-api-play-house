@@ -28,6 +28,9 @@
       <button class="nav-tab" data-tab="workflow">
         <span class="icon">🗺️</span> Game Quest & Workflow
       </button>
+      <button class="nav-tab" data-tab="realtime">
+        <span class="icon">📡</span> Real-time (WS/SSE)
+      </button>
     </div>
 
     <!-- Environment & Quick Actions -->
@@ -303,6 +306,45 @@
           </div>
         </div>
       </section>
+
+      <!-- 3. Real-Time WebSocket & SSE Live Studio Tab -->
+      <section id="tab-realtime" class="tab-panel">
+        <div class="request-bar">
+          <select id="rt-type-select" class="method-select" style="color:var(--accent-cyan);">
+            <option value="ws">WebSocket (WS/WSS)</option>
+            <option value="sse">Server-Sent Events (SSE)</option>
+          </select>
+          <input type="text" id="rt-url-input" class="url-input" placeholder="wss://echo.websocket.events or ws://localhost:8080/ws" value="wss://echo.websocket.events">
+          <button id="btn-rt-connect" class="btn btn-primary">Connect</button>
+          <button id="btn-rt-disconnect" class="btn btn-danger hidden">Disconnect</button>
+          <span id="rt-status-badge" class="status-badge status-idle">Disconnected</span>
+        </div>
+
+        <div class="split-pane">
+          <!-- Left: Frame Sender -->
+          <div class="pane-half request-pane">
+            <div class="pane-subheader">
+              <span>Send Message Frame</span>
+              <div style="display:flex; gap:6px;">
+                <button id="btn-rt-ping" class="btn-xs">⚡ Ping</button>
+                <button id="btn-rt-send" class="btn btn-primary btn-xs">Send ⬆</button>
+              </div>
+            </div>
+            <textarea id="rt-payload-input" class="code-editor" style="flex:1;" placeholder='{\n  "action": "game_move",\n  "player_id": "player_99",\n  "coordinates": [12, 45]\n}'></textarea>
+          </div>
+
+          <!-- Right: Live Frame Stream -->
+          <div class="pane-half response-pane">
+            <div class="pane-subheader">
+              <span>Real-Time Stream Feed</span>
+              <button id="btn-rt-clear" class="btn-xs">🗑️ Clear</button>
+            </div>
+            <div id="rt-messages-log" class="rt-messages-box">
+              <!-- Rendered frames -->
+            </div>
+          </div>
+        </div>
+      </section>
     </main>
   </div>
 
@@ -317,6 +359,7 @@
         <div class="import-tabs">
           <button class="import-tab active" data-imptype="curl">cURL Command</button>
           <button class="import-tab" data-imptype="postman">Postman JSON</button>
+          <button class="import-tab" data-imptype="openapi">OpenAPI / Swagger</button>
           <button class="import-tab" data-imptype="http">RFC .http File</button>
           <button class="import-tab" data-imptype="markdown">Markdown Docs</button>
         </div>
