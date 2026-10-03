@@ -36,3 +36,12 @@ The Strategy Advisor inspects the API contract and calculates the exact count of
 7. *SQL Injection & XSS Sanitization* (Security)
 8. *Performance SLA Benchmark* (< 500ms agility)
 Testers can execute all scenarios with 1 click to verify backend robustness.
+
+### 7. Can I read server setup instructions and repository docs without leaving the browser?
+Yes. Click the **📖 Docs & Setup** tab in the top navigation bar. It opens the integrated Developer Knowledge Hub with:
+- **Server Setup & CLI Guide**: Instructions for running the web studio, port customization, and headless CI runner flags (`--cli`, `--min-hp`, `--col`, `--chaos`, `--out`).
+- **Architecture & DAG**: Visual explanation of Game Rooms (Gates, Armory, Coliseum, Vault), variable chaining, House HP, and Raid Boss dynamics.
+- **QA & Test Strategy**: Multi-way test dimension explanations and chaos monkey settings.
+- **REST API Reference**: Full endpoint tables and curl examples.
+- **Live Markdown Docs**: Interactive reader that fetches and displays `README.md`, `ARCHITECTURE.md`, `FAQ.md`, and `docs/API.md` directly from the repository with one-click markdown copying.
+

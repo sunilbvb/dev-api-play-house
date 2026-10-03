@@ -11,6 +11,7 @@ import { ReplayManager } from './modules/replay/replay_manager.js';
 import { DocManager } from './modules/docs/doc_manager.js';
 import { AdvisorManager } from './modules/advisor/advisor_manager.js';
 import { RealtimeStudio } from './modules/realtime/realtime_studio.js';
+import { DocsHubManager } from './modules/docs_hub/docs_hub.js';
 
 class App {
   constructor() {
@@ -30,6 +31,7 @@ class App {
     this.docs = new DocManager(this);
     this.advisor = new AdvisorManager(this);
     this.realtime = new RealtimeStudio(this);
+    this.docsHub = new DocsHubManager(this);
 
     this.initNavigation();
   }
@@ -52,6 +54,8 @@ class App {
 
         if (targetTab === 'workflow') {
           this.workflow.analyzeCurrentWorkflow();
+        } else if (targetTab === 'docs') {
+          this.docsHub.loadLiveDoc(this.docsHub.currentDoc);
         }
       });
     });

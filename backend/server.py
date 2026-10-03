@@ -174,6 +174,23 @@ class PlayhouseRequestHandler(http.server.SimpleHTTPRequestHandler):
             elif path == "/api/replay/frames":
                 self._send_json(ReplayRecorder.get_frames())
 
+            elif path == "/api/docs/content":
+                doc_name = query.get("name", ["readme"])[0].lower()
+                root_dir = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
+                file_map = {
+                    "readme": os.path.join(root_dir, "README.md"),
+                    "architecture": os.path.join(root_dir, "ARCHITECTURE.md"),
+                    "faq": os.path.join(root_dir, "FAQ.md"),
+                    "api": os.path.join(root_dir, "docs", "API.md")
+                }
+                target = file_map.get(doc_name)
+                if target and os.path.exists(target):
+                    with open(target, "r", encoding="utf-8") as f:
+                        content = f.read()
+                    self._send_json({"name": doc_name, "content": content, "path": target})
+                else:
+                    self._send_json({"error": f"Documentation file '{doc_name}' not found"}, status=404)
+
             else:
                 self._send_json({"error": "Endpoint not found"}, status=404)
         finally:

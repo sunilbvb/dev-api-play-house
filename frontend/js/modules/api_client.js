@@ -89,4 +89,6 @@ export const apiClient = {
   generateApiDocs: (payload) => request('/api/docs/generate', { method: 'POST', body: payload }),
   analyzeTestWays: (payload) => request('/api/advisor/analyze-test-ways', { method: 'POST', body: payload }),
   runTestWays: (payload) => request('/api/advisor/run-test-ways', { method: 'POST', body: payload }),
+  getDocContent: (name) => request(`/api/docs/content?name=${encodeURIComponent(name)}`),
 };
+

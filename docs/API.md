@@ -70,3 +70,13 @@ The backend exposes the following REST endpoints:
 | `POST` | `/api/coop/events` | Broadcast party message or ping (`{"message": "Ready!", "actor": "Dev"}`) |
 | `GET` | `/api/replay/frames` | Retrieve recorded session checkpoints for timeline scrubber |
 | `POST` | `/api/replay/export` | Download full `.json` replay session tape |
+
+## 9. Tester Assistance, Advisor & In-App Docs
+
+| Method | Endpoint | Description |
+|---|---|---|
+| `POST` | `/api/docs/generate` | Auto-generate GitHub Markdown spec with parameter tables, inferred JSON schemas, and QA checklist |
+| `POST` | `/api/advisor/analyze-test-ways` | Calculate exact count and definitions of test dimensions for an API |
+| `POST` | `/api/advisor/run-test-ways` | Execute matrix and grade API resilience score |
+| `GET` | `/api/docs/content?name={readme\|architecture\|faq\|api}` | Serve live markdown documentation directly into in-app Docs Hub |
+

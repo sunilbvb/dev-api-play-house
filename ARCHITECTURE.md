@@ -60,6 +60,7 @@ flowchart TD
   - `docs/doc_manager.js`: Auto-documentation generator and markdown viewer.
   - `advisor/advisor_manager.js`: Strategy advisor and multi-way test matrix runner.
   - `realtime/realtime_studio.js`: Live WebSocket and Server-Sent Events traffic studio.
+  - `docs_hub/docs_hub.js`: In-app developer knowledge hub, setup guides, and live markdown documentation reader.
 
 ### 5. Chaos Monkey Engine (`backend/chaos/`)
 - Injects latency, 429 rate-limiting, and 500 server crashes to test client resilience during Boss Enrage mode.
@@ -84,3 +85,7 @@ flowchart TD
 
 ### 12. Test Strategy Advisor (`backend/advisor/`)
 - Inspects endpoints and calculates the exact count of critical test scenarios (6-8 dimensions) and grades each execution.
+
+### 13. In-App Knowledge & Setup Hub (`frontend/index.html` & `backend/server.py`)
+- Provides immediate developer onboarding: server quickstart commands, CI flags, Game House architectural guides, REST API reference tables, and interactive live markdown viewer for repository documentation.
+

@@ -47,6 +47,14 @@
 11. **📡 Real-Time WebSocket & SSE Live Studio**:
    - Native client for testing bidirectional game socket frames (`ws://`, `wss://`) and server-sent event streams with live traffic monitor and 1-click ping.
 
+12. **📝 Auto-Documentation & Test Strategy Advisor**:
+   - Instant 1-click GitHub Markdown documentation generation with inferred request/response schemas.
+   - Intelligent Test Advisor calculating 6-8 critical test dimensions (Happy Path, Empty Body, Auth Stripped, Bad Types, Tampered Method, Latency SLA) with automated stability scoring.
+
+13. **📖 In-App Docs & Developer Hub**:
+   - Integrated `Docs & Setup` tab directly inside the UI.
+   - Quickstart server setup, CLI flags guide, Game House architectural manuals, REST API reference tables, and interactive live markdown viewer for repository documentation.
+
 ---
 
 ## ⚡ Quick Start
@@ -56,12 +64,12 @@
 # Run server (Python 3.8+ built-in, zero pip installs)
 python3 app.py
 ```
-Open your browser at: 👉 **`http://localhost:8000`**
+Open your browser at: 👉 **`http://localhost:8080`**
 
 ### 2. Headless CI/CD Mode
 ```bash
 # Run headless quest integrity check in CI pipeline
-python3 app.py --cli --collection 1 --min-hp 70
+python3 app.py --cli --col 1 --min-hp 70
 ```
 
 ---

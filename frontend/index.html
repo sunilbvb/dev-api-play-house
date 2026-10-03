@@ -31,6 +31,9 @@
       <button class="nav-tab" data-tab="realtime">
         <span class="icon">📡</span> Real-time (WS/SSE)
       </button>
+      <button class="nav-tab" data-tab="docs">
+        <span class="icon">📖</span> Docs & Setup
+      </button>
     </div>
 
     <!-- Environment & Quick Actions -->
@@ -341,6 +344,393 @@
             </div>
             <div id="rt-messages-log" class="rt-messages-box">
               <!-- Rendered frames -->
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- 4. Documentation & Setup Hub Tab -->
+      <section id="tab-docs" class="tab-panel">
+        <div class="docs-hub-layout">
+          <!-- Left Docs Sub-Navigation -->
+          <nav class="docs-sidebar">
+            <div class="docs-sidebar-header">
+              <span class="icon">📚</span>
+              <h4>Docs & Knowledge Hub</h4>
+            </div>
+            <div class="docs-nav-group">
+              <span class="docs-group-title">GETTING STARTED</span>
+              <button class="docs-nav-item active" data-docs-section="setup">
+                <span class="icon">🚀</span> Server Setup & CLI
+              </button>
+              <button class="docs-nav-item" data-docs-section="architecture">
+                <span class="icon">🏰</span> Architecture & DAG
+              </button>
+            </div>
+
+            <div class="docs-nav-group">
+              <span class="docs-group-title">FEATURES & TESTING</span>
+              <button class="docs-nav-item" data-docs-section="qa_playbook">
+                <span class="icon">🧪</span> QA & Test Strategy
+              </button>
+              <button class="docs-nav-item" data-docs-section="api_ref">
+                <span class="icon">💻</span> REST API Reference
+              </button>
+            </div>
+
+            <div class="docs-nav-group">
+              <span class="docs-group-title">REPOSITORY DOCS</span>
+              <button class="docs-nav-item" data-docs-section="live_docs">
+                <span class="icon">📄</span> Live Markdown Docs
+              </button>
+            </div>
+          </nav>
+
+          <!-- Right Docs Content Area -->
+          <div class="docs-content-container">
+            <!-- Section 1: Server Setup & CLI -->
+            <div id="docs-sec-setup" class="docs-section-panel active">
+              <div class="docs-panel-header">
+                <h2>🚀 Server Setup & Headless CLI Guide</h2>
+                <span class="badge-pill">Zero Pip Dependencies (100% Python Stdlib)</span>
+              </div>
+
+              <div class="docs-card">
+                <h3>System Requirements</h3>
+                <p>Dev API Play House runs out-of-the-box on Linux, macOS, and Windows. No <code>pip install</code>, npm, or Docker container required.</p>
+                <div class="doc-checklist">
+                  <div class="check-item">✅ <strong>Python 3.8+</strong> (Standard Library: <code>http.server</code>, <code>urllib.request</code>, <code>sqlite3</code>, <code>json</code>, <code>ssl</code>)</div>
+                  <div class="check-item">✅ <strong>Modern Web Browser</strong> (Chrome, Firefox, Safari, Edge with ES6 Module support)</div>
+                  <div class="check-item">✅ <strong>Zero Third-Party Packages</strong> (0 external vulnerabilities, instant startup in &lt;100ms)</div>
+                </div>
+              </div>
+
+              <div class="docs-card">
+                <h3>Quickstart: Run Interactive Web Studio</h3>
+                <p>Launch the local web server and database manager:</p>
+                <div class="code-terminal-box">
+                  <code>python3 app.py</code>
+                  <button class="btn-xs btn-quick-copy" data-copy-cmd="python3 app.py">📋 Copy</button>
+                </div>
+                <p class="muted">Default address: <a href="http://localhost:8080" target="_blank">http://localhost:8080</a>. Automatically initializes local SQLite schema migrations and sample Arcade Game quest.</p>
+                <p>Custom port or host can be set via environment variables:</p>
+                <div class="code-terminal-box">
+                  <code>PORT=9090 python3 app.py</code>
+                  <button class="btn-xs btn-quick-copy" data-copy-cmd="PORT=9090 python3 app.py">📋 Copy</button>
+                </div>
+              </div>
+
+              <div class="docs-card">
+                <h3>Headless CI / CD Pipeline Runner</h3>
+                <p>Execute your Game House quest workflows automatically in CI pipelines (GitHub Actions, GitLab CI, Jenkins):</p>
+                <div class="code-terminal-box">
+                  <code>python3 app.py --cli --min-hp 70</code>
+                  <button class="btn-xs btn-quick-copy" data-copy-cmd="python3 app.py --cli --min-hp 70">📋 Copy</button>
+                </div>
+                <table class="docs-table">
+                  <thead>
+                    <tr>
+                      <th>Flag</th>
+                      <th>Default</th>
+                      <th>Description</th>
+                    </tr>
+                  </thead>
+                  <tbody>
+                    <tr>
+                      <td><code>--cli</code></td>
+                      <td>False</td>
+                      <td>Runs in headless automated terminal mode without starting web server.</td>
+                    </tr>
+                    <tr>
+                      <td><code>--min-hp &lt;N&gt;</code></td>
+                      <td>80</td>
+                      <td>Required minimum House HP percentage. Exits with code 1 if House HP falls below threshold.</td>
+                    </tr>
+                    <tr>
+                      <td><code>--col &lt;ID/Name&gt;</code></td>
+                      <td>1</td>
+                      <td>Specific Collection ID or Collection Name to execute.</td>
+                    </tr>
+                    <tr>
+                      <td><code>--chaos &lt;level&gt;</code></td>
+                      <td>off</td>
+                      <td>Simulate Boss Enrage mode during CI run (<code>light</code>, <code>medium</code>, <code>insane</code>).</td>
+                    </tr>
+                    <tr>
+                      <td><code>--out &lt;file&gt;</code></td>
+                      <td>None</td>
+                      <td>Optional path to export JSON execution summary and tape.</td>
+                    </tr>
+                  </tbody>
+                </table>
+              </div>
+            </div>
+
+            <!-- Section 2: Architecture & DAG -->
+            <div id="docs-sec-architecture" class="docs-section-panel">
+              <div class="docs-panel-header">
+                <h2>🏰 Architecture & Autonomous DAG Solver</h2>
+                <span class="badge-pill">Topological Dependency Sequencing</span>
+              </div>
+
+              <div class="docs-card">
+                <h3>The Game API House Paradigm</h3>
+                <p>Traditional API tools treat endpoints as flat, isolated lists. Dev API Play House models API systems as a living gamified dungeon:</p>
+                <div class="house-rooms-grid">
+                  <div class="room-card">
+                    <span class="room-icon">🛡️</span>
+                    <h4>1. Gates & Auth</h4>
+                    <p>Login, OAuth, sessions, JWT token issuing endpoints. Evaluated first to harvest credentials.</p>
+                  </div>
+                  <div class="room-card">
+                    <span class="room-icon">⚔️</span>
+                    <h4>2. Armory & Player</h4>
+                    <p>User profile, character inventory, balance checks, setup endpoints.</p>
+                  </div>
+                  <div class="room-card">
+                    <span class="room-icon">💥</span>
+                    <h4>3. Coliseum & Action</h4>
+                    <p>Core gameplay actions, state mutations, match rounds, transactional APIs.</p>
+                  </div>
+                  <div class="room-card">
+                    <span class="room-icon">🏆</span>
+                    <h4>4. Vault & Leaderboard</h4>
+                    <p>Score submissions, leaderboards, stats, logout, and completion checks.</p>
+                  </div>
+                </div>
+              </div>
+
+              <div class="docs-card">
+                <h3>Dynamic Variable Extraction & Chaining</h3>
+                <p>Any API can declare extraction rules in its configuration. Chained variables are passed down the DAG in runtime memory:</p>
+                <table class="docs-table">
+                  <thead>
+                    <tr>
+                      <th>Source Type</th>
+                      <th>Target Property</th>
+                      <th>Example Rule</th>
+                    </tr>
+                  </thead>
+                  <tbody>
+                    <tr>
+                      <td><code>body_json</code></td>
+                      <td>Dot-notation path</td>
+                      <td><code>token</code> or <code>data.user.id</code></td>
+                    </tr>
+                    <tr>
+                      <td><code>header</code></td>
+                      <td>Header key</td>
+                      <td><code>Set-Cookie</code> or <code>Authorization</code></td>
+                    </tr>
+                    <tr>
+                      <td><code>status</code></td>
+                      <td>Status code</td>
+                      <td><code>last_status</code></td>
+                    </tr>
+                    <tr>
+                      <td><code>regex</code></td>
+                      <td>Regular expression</td>
+                      <td><code>bearer\s+([a-zA-Z0-9_\-\.]+)</code></td>
+                    </tr>
+                  </tbody>
+                </table>
+                <p>Supported Dynamic Macro Variables:</p>
+                <ul class="docs-list">
+                  <li><code>{{$timestamp}}</code>: Current Unix epoch timestamp in seconds.</li>
+                  <li><code>{{$isoTimestamp}}</code>: ISO 8601 UTC timestamp (e.g. <code>2026-10-04T00:00:00Z</code>).</li>
+                  <li><code>{{$guid}}</code> / <code>{{$uuid}}</code>: Cryptographically random UUID v4.</li>
+                  <li><code>{{$randomInt}}</code>: Random integer between 100 and 999999.</li>
+                </ul>
+              </div>
+            </div>
+
+            <!-- Section 3: QA & Test Strategy -->
+            <div id="docs-sec-qa_playbook" class="docs-section-panel">
+              <div class="docs-panel-header">
+                <h2>🧪 QA Playbook & Multi-Way Test Advisor</h2>
+                <span class="badge-pill">Automated Inspection & Fuzzing</span>
+              </div>
+
+              <div class="docs-card">
+                <h3>Multi-Way Test Strategy Advisor</h3>
+                <p>Instead of guessing how to test an API, the Test Advisor inspects endpoint methods, parameters, and bodies to generate 6-8 distinct test ways:</p>
+                <table class="docs-table">
+                  <thead>
+                    <tr>
+                      <th>Way</th>
+                      <th>Dimension</th>
+                      <th>What It Tests</th>
+                      <th>Expected Outcome</th>
+                    </tr>
+                  </thead>
+                  <tbody>
+                    <tr>
+                      <td><strong>1. Happy Path</strong></td>
+                      <td>Functional Baseline</td>
+                      <td>Exact configured headers and payload</td>
+                      <td>HTTP 2xx Success</td>
+                    </tr>
+                    <tr>
+                      <td><strong>2. Empty Body</strong></td>
+                      <td>Payload Boundary</td>
+                      <td>Sends empty body <code>{}</code></td>
+                      <td>HTTP 400 Bad Request</td>
+                    </tr>
+                    <tr>
+                      <td><strong>3. Auth Stripped</strong></td>
+                      <td>Security Verification</td>
+                      <td>Removes Authorization/API-Key headers</td>
+                      <td>HTTP 401 Unauthorized</td>
+                    </tr>
+                    <tr>
+                      <td><strong>4. Bad Field Types</strong></td>
+                      <td>Type Safety Fuzzing</td>
+                      <td>Flips numbers to strings, objects to booleans</td>
+                      <td>HTTP 422 / 400 Validation Error</td>
+                    </tr>
+                    <tr>
+                      <td><strong>5. Method Tampering</strong></td>
+                      <td>HTTP Protocol Compliance</td>
+                      <td>Swaps POST/GET with incompatible method</td>
+                      <td>HTTP 405 Method Not Allowed</td>
+                    </tr>
+                    <tr>
+                      <td><strong>6. Latency SLA</strong></td>
+                      <td>Performance Verification</td>
+                      <td>Measures wall-clock elapsed time</td>
+                      <td>&lt; 500 ms SLA response</td>
+                    </tr>
+                  </tbody>
+                </table>
+              </div>
+
+              <div class="docs-card">
+                <h3>Automated Documentation Generator</h3>
+                <p>Inspects the live request model, extracts URL query params, detects path variables (e.g. <code>{id}</code>), infers JSON body schemas with field types, and compiles ready-to-publish GitHub Markdown docs including QA checklists with a single click.</p>
+              </div>
+
+              <div class="docs-card">
+                <h3>Boss Enrage Mode & Chaos Monkey</h3>
+                <p>Toggle <strong>⚔️ Boss Enrage Mode</strong> to stress-test your frontend and API clients against real-world chaos conditions:</p>
+                <ul class="docs-list">
+                  <li><strong>Latency Spikes</strong>: Random delays between 200ms and 1500ms injected.</li>
+                  <li><strong>HTTP 429 Rate Limits</strong>: Simulates server throttling under load.</li>
+                  <li><strong>HTTP 500 Crashes</strong>: Simulates unexpected backend downstream outages.</li>
+                  <li><strong>Token Corruption</strong>: Tampering authorization headers to verify retry logic.</li>
+                </ul>
+              </div>
+            </div>
+
+            <!-- Section 4: REST API Reference -->
+            <div id="docs-sec-api_ref" class="docs-section-panel">
+              <div class="docs-panel-header">
+                <h2>💻 Internal Play House REST API Reference</h2>
+                <span class="badge-pill">Built-in Server Endpoints</span>
+              </div>
+
+              <div class="docs-card">
+                <table class="docs-table">
+                  <thead>
+                    <tr>
+                      <th>Method</th>
+                      <th>Endpoint</th>
+                      <th>Description</th>
+                    </tr>
+                  </thead>
+                  <tbody>
+                    <tr>
+                      <td><span class="status-badge" style="color:var(--accent-green)">GET</span></td>
+                      <td><code>/api/health</code></td>
+                      <td>Server liveness check and version metadata.</td>
+                    </tr>
+                    <tr>
+                      <td><span class="status-badge" style="color:var(--accent-green)">GET</span></td>
+                      <td><code>/api/environments</code></td>
+                      <td>List all configured environments and variables.</td>
+                    </tr>
+                    <tr>
+                      <td><span class="status-badge" style="color:var(--accent-yellow)">POST</span></td>
+                      <td><code>/api/environments</code></td>
+                      <td>Create a new environment vault.</td>
+                    </tr>
+                    <tr>
+                      <td><span class="status-badge" style="color:var(--accent-green)">GET</span></td>
+                      <td><code>/api/collections</code></td>
+                      <td>List all API collections and request trees.</td>
+                    </tr>
+                    <tr>
+                      <td><span class="status-badge" style="color:var(--accent-yellow)">POST</span></td>
+                      <td><code>/api/execute</code></td>
+                      <td>Execute a single API request through pure stdlib runner with variable interpolation.</td>
+                    </tr>
+                    <tr>
+                      <td><span class="status-badge" style="color:var(--accent-yellow)">POST</span></td>
+                      <td><code>/api/workflows/analyze</code></td>
+                      <td>Build topological DAG, determine execution sequence, and map variable producers/consumers.</td>
+                    </tr>
+                    <tr>
+                      <td><span class="status-badge" style="color:var(--accent-yellow)">POST</span></td>
+                      <td><code>/api/workflows/run</code></td>
+                      <td>Execute full quest pipeline, evaluate House HP, and compute XP rewards.</td>
+                    </tr>
+                    <tr>
+                      <td><span class="status-badge" style="color:var(--accent-yellow)">POST</span></td>
+                      <td><code>/api/house/auto-build</code></td>
+                      <td>Auto-Architect raw URLs or workspace files into themed game rooms and raid boss.</td>
+                    </tr>
+                    <tr>
+                      <td><span class="status-badge" style="color:var(--accent-yellow)">POST</span></td>
+                      <td><code>/api/docs/generate</code></td>
+                      <td>Auto-generate GitHub Markdown spec with inferred schema and QA checklist.</td>
+                    </tr>
+                    <tr>
+                      <td><span class="status-badge" style="color:var(--accent-yellow)">POST</span></td>
+                      <td><code>/api/advisor/analyze-test-ways</code></td>
+                      <td>Calculate exact count and definitions of test dimensions for an API.</td>
+                    </tr>
+                    <tr>
+                      <td><span class="status-badge" style="color:var(--accent-yellow)">POST</span></td>
+                      <td><code>/api/advisor/run-test-ways</code></td>
+                      <td>Execute test matrix and grade API stability score.</td>
+                    </tr>
+                    <tr>
+                      <td><span class="status-badge" style="color:var(--accent-green)">GET</span></td>
+                      <td><code>/api/docs/content?name=&lt;doc&gt;</code></td>
+                      <td>Read live repository documentation (readme, architecture, faq, api).</td>
+                    </tr>
+                    <tr>
+                      <td><span class="status-badge" style="color:var(--accent-cyan)">ALL</span></td>
+                      <td><code>/mock/*</code></td>
+                      <td>Offline mock game server answering with smart mock payloads.</td>
+                    </tr>
+                  </tbody>
+                </table>
+              </div>
+            </div>
+
+            <!-- Section 5: Live Project Documentation -->
+            <div id="docs-sec-live_docs" class="docs-section-panel">
+              <div class="docs-panel-header">
+                <h2>📄 Live Project Documentation</h2>
+                <div class="live-doc-actions">
+                  <div class="doc-pills">
+                    <button class="doc-pill-btn active" data-doc-file="readme">README.md</button>
+                    <button class="doc-pill-btn" data-doc-file="architecture">ARCHITECTURE.md</button>
+                    <button class="doc-pill-btn" data-doc-file="faq">FAQ.md</button>
+                    <button class="doc-pill-btn" data-doc-file="api">docs/API.md</button>
+                  </div>
+                  <button id="btn-copy-live-doc" class="btn btn-secondary btn-xs">📋 Copy Markdown</button>
+                </div>
+              </div>
+
+              <div class="live-doc-meta">
+                <span id="live-doc-title" class="doc-filename">README.md</span>
+                <span id="live-doc-path" class="doc-filepath">/home/sunil-bakale/IdeaProjects/dev-api-play-house/README.md</span>
+              </div>
+
+              <div class="live-doc-container">
+                <pre><code id="live-doc-raw">// Loading documentation...</code></pre>
+              </div>
             </div>
           </div>
         </div>
