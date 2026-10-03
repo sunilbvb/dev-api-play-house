@@ -40,6 +40,9 @@
         <button id="btn-manage-env" class="btn-icon" title="Manage Environments & Variables">⚙️</button>
       </div>
 
+      <button id="btn-open-auto-house" class="btn btn-arcade" title="Auto-Generate a complete Game House from API lists or Workspace">
+        <span class="icon">🏰</span> Auto-Build House
+      </button>
       <button id="btn-open-import" class="btn btn-secondary">
         <span class="icon">📥</span> Import
       </button>
@@ -201,6 +204,31 @@
           </div>
         </div>
 
+        <!-- Game House Vitals HUD -->
+        <div id="house-vitals-hud" class="house-hud">
+          <div class="hud-stat-box">
+            <span class="hud-label">HOUSE HP</span>
+            <div class="hp-bar-bg">
+              <div id="hud-hp-fill" class="hp-bar-fill" style="width: 100%;"></div>
+            </div>
+            <span id="hud-hp-text" class="hud-val">100%</span>
+          </div>
+
+          <div class="hud-stat-box">
+            <span class="hud-label">XP GAINED</span>
+            <span id="hud-xp-text" class="hud-val accent-xp">0 XP</span>
+          </div>
+
+          <div class="hud-stat-box">
+            <span class="hud-label">AGILITY</span>
+            <span id="hud-latency-text" class="hud-val">0 ms</span>
+          </div>
+
+          <div id="hud-boss-card" class="boss-badge boss-alive">
+            👾 RAID BOSS READY
+          </div>
+        </div>
+
         <div class="workflow-visualizer-container">
           <div class="quest-map" id="quest-steps-container">
             <!-- Rendered by JS DAG -->
@@ -325,6 +353,50 @@
             </div>
           </div>
         </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Auto Game House Builder Modal -->
+  <div id="modal-auto-house" class="modal-overlay hidden">
+    <div class="modal-card modal-lg">
+      <div class="modal-header">
+        <h3>🏰 Auto-Architect Game House</h3>
+        <button class="btn-close" data-close="modal-auto-house">✕</button>
+      </div>
+      <div class="modal-body">
+        <p class="subtitle" style="font-size:12px; color:var(--text-muted); margin-bottom:10px;">
+          Feed raw API URLs or a workspace directory. The tool will automatically partition endpoints into Game Rooms (Gates, Armory, Coliseum, Vault), chain tokens, generate victory rules, and spawn a Raid Boss.
+        </p>
+
+        <div style="display:flex; gap:12px;">
+          <div class="form-group" style="flex:1;">
+            <label>House Name:</label>
+            <input type="text" id="house-name" placeholder="Arcade Game House" value="Arcade Game House">
+          </div>
+          <div class="form-group" style="flex:1;">
+            <label>Dungeon Theme:</label>
+            <select id="house-theme-select">
+              <option value="arcade">Retro 80s Arcade (Stage Bosses, Coins, High Scores)</option>
+              <option value="cyberpunk">Cyberpunk Neon Matrix (Mainframes, ICE Guardian, Hacks)</option>
+              <option value="fantasy">Fantasy Dungeon & Dragons (Citadel, Armor, Dragon Lair)</option>
+            </select>
+          </div>
+        </div>
+
+        <div class="form-group">
+          <label>Scan Local Workspace Directory (Optional):</label>
+          <input type="text" id="house-workspace-path" placeholder="/home/sunil-bakale/IdeaProjects/my-api-project">
+        </div>
+
+        <div class="form-group">
+          <label>Or Paste Raw List of APIs (URLs, cURL commands, or METHOD PATH lines):</label>
+          <textarea id="house-raw-apis" class="code-editor" rows="9" placeholder="https://api.game.io/v1/auth/login&#10;GET https://api.game.io/v1/players/character&#10;POST https://api.game.io/v1/arena/battle&#10;GET https://api.game.io/v1/leaderboard"></textarea>
+        </div>
+      </div>
+      <div class="modal-footer">
+        <button class="btn btn-secondary" data-close="modal-auto-house">Cancel</button>
+        <button id="btn-do-build-house" class="btn btn-arcade">⚡ Spawn Game House</button>
       </div>
     </div>
   </div>

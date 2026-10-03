@@ -196,6 +196,18 @@ body {
   background: #b62324;
 }
 
+.btn-arcade {
+  background: linear-gradient(135deg, #ff007f 0%, #7928ca 100%);
+  color: #fff;
+  border: 1px solid rgba(255, 0, 127, 0.4);
+  box-shadow: 0 0 10px rgba(255, 0, 127, 0.3);
+  font-weight: 700;
+}
+.btn-arcade:hover {
+  box-shadow: 0 0 16px rgba(255, 0, 127, 0.6);
+  transform: translateY(-1px);
+}
+
 .btn-sm {
   padding: 3px 8px;
   font-size: 11px;
@@ -655,6 +667,77 @@ pre code {
 .workflow-header .subtitle { font-size: 12px; color: var(--text-muted); margin-top: 2px; }
 
 .workflow-actions { display: flex; gap: 10px; }
+
+/* Game House HUD */
+.house-hud {
+  background: var(--bg-surface);
+  border-bottom: 1px solid var(--border-color);
+  padding: 10px 20px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 20px;
+}
+
+.hud-stat-box {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.hud-label {
+  font-size: 11px;
+  font-weight: 700;
+  color: var(--text-muted);
+}
+
+.hp-bar-bg {
+  width: 120px;
+  height: 10px;
+  background: var(--bg-dark);
+  border-radius: 5px;
+  overflow: hidden;
+  border: 1px solid var(--border-color);
+}
+
+.hp-bar-fill {
+  height: 100%;
+  background: var(--accent-green);
+  transition: width 0.4s ease, background 0.4s ease;
+}
+
+.hud-val {
+  font-family: var(--font-mono);
+  font-size: 13px;
+  font-weight: 700;
+  color: var(--text-bright);
+}
+
+.accent-xp {
+  color: var(--accent-orange);
+  text-shadow: 0 0 8px rgba(210, 153, 34, 0.4);
+}
+
+.boss-badge {
+  padding: 4px 10px;
+  border-radius: 4px;
+  font-size: 11px;
+  font-weight: 800;
+  letter-spacing: 0.5px;
+}
+
+.boss-alive {
+  background: rgba(255, 0, 127, 0.15);
+  color: var(--accent-arcade);
+  border: 1px solid rgba(255, 0, 127, 0.4);
+  box-shadow: 0 0 10px rgba(255, 0, 127, 0.2);
+}
+
+.boss-defeated {
+  background: rgba(63, 185, 80, 0.15);
+  color: var(--accent-green);
+  border: 1px solid rgba(63, 185, 80, 0.4);
+}
 
 .workflow-visualizer-container {
   flex: 1;

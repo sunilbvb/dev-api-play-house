@@ -72,4 +72,8 @@ export const apiClient = {
     method: 'POST',
     body: { collection_id: collectionId, runtime_variables: runtimeVars },
   }),
+
+  // Game House Auto-Architect & Vitals
+  autoBuildHouse: (payload) => request('/api/house/auto-build', { method: 'POST', body: payload }),
+  getHouseVitals: (collectionId) => request(`/api/house/${collectionId}/vitals`),
 };

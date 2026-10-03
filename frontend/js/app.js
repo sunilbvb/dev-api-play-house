@@ -4,6 +4,7 @@ import { Studio } from './modules/studio/studio.js';
 import { WorkflowManager } from './modules/workflow/workflow.js';
 import { Importer } from './modules/importer/importer.js';
 import { Exporter } from './modules/exporter/exporter.js';
+import { HouseManager } from './modules/house/house_manager.js';
 
 class App {
   constructor() {
@@ -16,6 +17,7 @@ class App {
     this.workflow = new WorkflowManager(this);
     this.importer = new Importer(this);
     this.exporter = new Exporter(this);
+    this.house = new HouseManager(this);
 
     this.initNavigation();
   }
@@ -48,6 +50,7 @@ class App {
   }
 
   onCollectionSelected(colId) {
+    this.house.refreshVitals(colId);
     if (document.getElementById('tab-workflow').classList.contains('active')) {
       this.workflow.analyzeCurrentWorkflow();
     }

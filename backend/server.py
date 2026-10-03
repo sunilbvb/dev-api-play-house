@@ -16,7 +16,11 @@ from .parsers import (
 from .engine import (
     execute_request,
     extract_variables,
-    analyze_workflow_dag
+    analyze_workflow_dag,
+    parse_raw_api_list,
+    scan_workspace_for_apis,
+    auto_generate_game_house,
+    THEMES
 )
 from .exporters import (
     to_curl,
@@ -114,6 +118,32 @@ class PlayhouseRequestHandler(http.server.SimpleHTTPRequestHandler):
             elif path == "/api/history":
                 cursor.execute("SELECT * FROM history ORDER BY id DESC LIMIT 50")
                 self._send_json([dict(r) for r in cursor.fetchall()])
+
+            elif path.startswith("/api/house/") and path.endswith("/vitals"):
+                col_id = path.split("/")[3]
+                cursor.execute("SELECT * FROM requests WHERE collection_id = ?", (col_id,))
+                reqs = [dict(r) for r in cursor.fetchall()]
+
+                cursor.execute("SELECT status_code, elapsed_ms FROM history WHERE request_id IN (SELECT id FROM requests WHERE collection_id = ?) ORDER BY id DESC LIMIT 20", (col_id,))
+                history_rows = cursor.fetchall()
+
+                total_runs = len(history_rows)
+                successes = sum(1 for h in history_rows if 200 <= (h["status_code"] or 0) < 300)
+                failures = total_runs - successes
+                avg_latency = round(sum((h["elapsed_ms"] or 0) for h in history_rows) / total_runs, 1) if total_runs > 0 else 0
+                hp = max(10, 100 - (failures * 15)) if total_runs > 0 else 100
+                xp_earned = successes * 120
+
+                self._send_json({
+                    "collection_id": col_id,
+                    "total_requests": len(reqs),
+                    "total_runs": total_runs,
+                    "success_rate": round((successes / total_runs) * 100, 1) if total_runs > 0 else 100.0,
+                    "avg_latency_ms": avg_latency,
+                    "house_hp": hp,
+                    "xp_earned": xp_earned,
+                    "boss_defeated": hp > 50 and successes >= len(reqs) and len(reqs) > 0
+                })
 
             else:
                 self._send_json({"error": "Endpoint not found"}, status=404)
@@ -406,6 +436,52 @@ class PlayhouseRequestHandler(http.server.SimpleHTTPRequestHandler):
                     output = to_curl(requests_list[0] if requests_list else {})
 
                 self._send_json({"format": format_type, "content": output})
+
+            elif path == "/api/house/auto-build":
+                raw_text = body.get("raw_text", "")
+                workspace_path = body.get("workspace_path", "")
+                house_name = body.get("house_name", "Arcade Game House")
+                theme_key = body.get("theme_key", "arcade")
+
+                collected_apis = []
+                if raw_text:
+                    collected_apis.extend(parse_raw_api_list(raw_text))
+                if workspace_path:
+                    collected_apis.extend(scan_workspace_for_apis(workspace_path))
+
+                if not collected_apis:
+                    return self._send_json({"error": "No valid APIs could be parsed from input or workspace"}, status=400)
+
+                # Generate game house
+                house = auto_generate_game_house(collected_apis, house_name=house_name, theme_key=theme_key)
+
+                # Persist as a new collection
+                cursor.execute("INSERT INTO collections (name, description) VALUES (?, ?)", 
+                               (house["house_name"], f"Theme: {house['theme']} | Quests: {house['stats']['total_quests']}"))
+                col_id = cursor.lastrowid
+
+                # Insert requests in ordered quest sequence
+                order_idx = 1
+                for r in house["ordered_sequence"]:
+                    cursor.execute("""
+                    INSERT INTO requests (collection_id, name, method, url, headers_json, body, body_type, order_idx, extracts_json)
+                    VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?)
+                    """, (
+                        col_id,
+                        r.get("quest_title") or r.get("name", "Quest API"),
+                        r.get("method", "GET"),
+                        r.get("url", ""),
+                        json.dumps(r.get("headers", {})),
+                        r.get("body", ""),
+                        r.get("body_type", "json"),
+                        order_idx,
+                        json.dumps(r.get("extracts", []))
+                    ))
+                    order_idx += 1
+
+                conn.commit()
+                house["collection_id"] = col_id
+                self._send_json(house, status=201)
 
             else:
                 self._send_json({"error": "Endpoint not found"}, status=404)

@@ -40,3 +40,10 @@ The backend exposes the following REST endpoints:
 | `POST` | `/api/export` | Convert requests to cURL, .http, fetch, python, or Postman |
 | `GET` | `/api/history` | View the last 50 executed requests |
 | `GET` | `/api/health` | Health check endpoint |
+
+## 5. Game House Auto-Architect & Vitals
+
+| Method | Endpoint | Description |
+|---|---|---|
+| `POST` | `/api/house/auto-build` | Automatically partition raw API list or workspace into themed Game House with rooms, quests, and Raid Boss |
+| `GET` | `/api/house/{id}/vitals` | Retrieve live Game House HP, average agility, XP rewards, and Boss status |

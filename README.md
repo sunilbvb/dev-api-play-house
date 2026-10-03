@@ -17,6 +17,11 @@
    - Auto-extracts tokens, IDs, and cookies from responses into environment variables.
    - 1-click **Quest Pipeline Runner** that executes complete sequence graphs with live status, timings, and variable logs.
 
+3. **Autonomous Game House Generator**:
+   - Feed raw API lists (URLs, endpoints, cURL strings) or scan entire local workspace directories.
+   - Automatically partitions APIs into 4 Game Rooms (The Citadel Gates, The Armory, The Coliseum, The Vault).
+   - Spawns a **Raid Boss**, assigns XP rewards, tracks live **House HP**, and evaluates victory conditions.
+
 3. **Multi-Environment State & Secret Vault**:
    - Seamless switching between `Development`, `Staging`, and `Production`.
    - Variable interpolation engine with support for `{{variable_name}}` and dynamic generators (`{{$guid}}`, `{{$timestamp}}`, `{{$randomInt}}`).
