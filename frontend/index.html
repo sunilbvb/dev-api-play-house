@@ -1,0 +1,338 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>🎮 Dev API Play House - Game API Studio & Quest Runner</title>
+  <link rel="stylesheet" href="/css/styles.css">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Fira+Code:wght@400;500;600&family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+</head>
+<body class="dark-theme">
+  <!-- Top Navigation Bar -->
+  <header class="topbar">
+    <div class="brand">
+      <div class="brand-logo">👾</div>
+      <div class="brand-title">
+        <h1>Dev API Play House</h1>
+        <span class="brand-tag">Game API Workflow Engine</span>
+      </div>
+    </div>
+
+    <!-- Mode Switcher -->
+    <div class="view-tabs">
+      <button class="nav-tab active" data-tab="studio">
+        <span class="icon">⚡</span> API Studio
+      </button>
+      <button class="nav-tab" data-tab="workflow">
+        <span class="icon">🗺️</span> Game Quest & Workflow
+      </button>
+    </div>
+
+    <!-- Environment & Quick Actions -->
+    <div class="topbar-actions">
+      <div class="env-selector-wrapper">
+        <span class="env-label">ENV:</span>
+        <select id="env-select" class="env-select">
+          <option value="">Loading...</option>
+        </select>
+        <button id="btn-manage-env" class="btn-icon" title="Manage Environments & Variables">⚙️</button>
+      </div>
+
+      <button id="btn-open-import" class="btn btn-secondary">
+        <span class="icon">📥</span> Import
+      </button>
+      <button id="btn-open-export" class="btn btn-secondary">
+        <span class="icon">📤</span> Export
+      </button>
+    </div>
+  </header>
+
+  <!-- Main Container -->
+  <div class="main-layout">
+    <!-- Left Sidebar: Collections & Explorer -->
+    <aside class="sidebar" id="sidebar">
+      <div class="sidebar-header">
+        <div class="search-box">
+          <input type="text" id="api-search" placeholder="Search APIs, endpoints..." autocomplete="off">
+          <span class="search-icon">🔍</span>
+        </div>
+        <div class="sidebar-actions">
+          <button id="btn-new-collection" class="btn-sm" title="New Collection">+ Col</button>
+          <button id="btn-new-request" class="btn-sm btn-primary" title="New Request">+ API</button>
+        </div>
+      </div>
+
+      <div class="sidebar-content" id="collections-tree">
+        <!-- Rendered via JS -->
+      </div>
+    </aside>
+
+    <!-- Main Workspace -->
+    <main class="workspace">
+      <!-- 1. API Studio Tab -->
+      <section id="tab-studio" class="tab-panel active">
+        <!-- Request Editor Top -->
+        <div class="request-bar">
+          <select id="req-method" class="method-select method-get">
+            <option value="GET">GET</option>
+            <option value="POST">POST</option>
+            <option value="PUT">PUT</option>
+            <option value="PATCH">PATCH</option>
+            <option value="DELETE">DELETE</option>
+            <option value="HEAD">HEAD</option>
+            <option value="OPTIONS">OPTIONS</option>
+          </select>
+          <input type="text" id="req-url" class="url-input" placeholder="https://api.example.com/v1/resource or {{base_url}}/login">
+          <button id="btn-send-request" class="btn btn-primary btn-send">
+            <span class="send-text">Send</span>
+            <span class="send-spinner hidden"></span>
+          </button>
+          <button id="btn-save-request" class="btn btn-secondary">Save</button>
+        </div>
+
+        <div class="api-name-bar">
+          <input type="text" id="req-name" class="name-input" placeholder="Untitled Request">
+          <div class="format-chips">
+            <button class="chip-btn active" data-format-tab="builder">Builder</button>
+            <button class="chip-btn" data-format-tab="curl">cURL</button>
+            <button class="chip-btn" data-format-tab="http">HTTP Raw</button>
+            <button class="chip-btn" data-format-tab="fetch">JS Fetch</button>
+            <button class="chip-btn" data-format-tab="python">Python</button>
+          </div>
+        </div>
+
+        <!-- Split Screen: Editor & Response -->
+        <div class="split-pane">
+          <!-- Left: Request Configuration -->
+          <div class="pane-half request-pane">
+            <!-- Format code view (hidden by default) -->
+            <div id="format-preview-container" class="format-preview-pane hidden">
+              <div class="pane-subheader">
+                <span id="format-title">cURL Command</span>
+                <button id="btn-copy-format" class="btn-xs">📋 Copy</button>
+              </div>
+              <pre><code id="format-code-content"></code></pre>
+            </div>
+
+            <!-- Builder view -->
+            <div id="builder-container" class="builder-pane">
+              <div class="sub-tabs">
+                <button class="sub-tab active" data-subtab="headers">Headers (<span id="header-count">0</span>)</button>
+                <button class="sub-tab" data-subtab="body">Body</button>
+                <button class="sub-tab" data-subtab="extracts">Extract Rules (<span id="extract-count">0</span>)</button>
+              </div>
+
+              <!-- Headers Editor -->
+              <div id="subtab-headers" class="subtab-content active">
+                <div class="key-value-list" id="headers-list"></div>
+                <button id="btn-add-header" class="btn-sm btn-outline">+ Add Header</button>
+              </div>
+
+              <!-- Body Editor -->
+              <div id="subtab-body" class="subtab-content">
+                <div class="body-options">
+                  <label><input type="radio" name="body_type" value="json" checked> JSON</label>
+                  <label><input type="radio" name="body_type" value="form"> Form / URL-Encoded</label>
+                  <label><input type="radio" name="body_type" value="raw"> Raw Text</label>
+                  <label><input type="radio" name="body_type" value="none"> None</label>
+                  <button id="btn-beautify-body" class="btn-xs btn-outline">Format JSON</button>
+                  <button id="btn-copy-req-body" class="btn-xs">📋 Copy Body</button>
+                </div>
+                <textarea id="req-body-text" class="code-editor" placeholder='{\n  "key": "value"\n}'></textarea>
+              </div>
+
+              <!-- Extractions (Token / Var Chaining) -->
+              <div id="subtab-extracts" class="subtab-content">
+                <p class="section-hint">Extract values from response into environment variables for subsequent APIs (e.g. Auth tokens, Player IDs):</p>
+                <div class="key-value-list" id="extracts-list"></div>
+                <button id="btn-add-extract" class="btn-sm btn-outline">+ Add Extraction Rule</button>
+              </div>
+            </div>
+          </div>
+
+          <!-- Right: Response Inspector -->
+          <div class="pane-half response-pane">
+            <div class="pane-subheader response-header">
+              <div class="status-tags">
+                <span id="res-status" class="status-badge status-idle">Ready</span>
+                <span id="res-time" class="meta-tag">0 ms</span>
+              </div>
+              <div class="response-actions">
+                <button id="btn-copy-res-body" class="btn-xs">📋 Copy Response</button>
+                <button id="btn-copy-res-headers" class="btn-xs">📋 Copy Headers</button>
+              </div>
+            </div>
+
+            <div class="sub-tabs">
+              <button class="sub-tab active" data-res-tab="body">Response Body</button>
+              <button class="sub-tab" data-res-tab="headers">Headers</button>
+              <button class="sub-tab" data-res-tab="extracted">Chained Variables</button>
+            </div>
+
+            <div id="res-tab-body" class="res-content active">
+              <pre><code id="res-body-code">// Response will appear here</code></pre>
+            </div>
+
+            <div id="res-tab-headers" class="res-content">
+              <pre><code id="res-headers-code">// Response headers will appear here</code></pre>
+            </div>
+
+            <div id="res-tab-extracted" class="res-content">
+              <div id="extracted-vars-view" class="extracted-vars-box">
+                <p class="muted">No variables extracted in this run.</p>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- 2. Game Quest & Workflow Tab -->
+      <section id="tab-workflow" class="tab-panel">
+        <div class="workflow-header">
+          <div>
+            <h2>🗺️ Game Quest & Dependency Pipeline</h2>
+            <p class="subtitle">Autonomous DAG solver detects login prerequisites, token extracts, and executes game API cycles.</p>
+          </div>
+          <div class="workflow-actions">
+            <button id="btn-analyze-dag" class="btn btn-secondary">⚡ Re-Analyze Graph</button>
+            <button id="btn-run-workflow" class="btn btn-primary">▶ Run Full Quest Pipeline</button>
+          </div>
+        </div>
+
+        <div class="workflow-visualizer-container">
+          <div class="quest-map" id="quest-steps-container">
+            <!-- Rendered by JS DAG -->
+          </div>
+        </div>
+
+        <!-- Workflow execution console -->
+        <div class="workflow-console">
+          <div class="pane-subheader">
+            <span>Execution Terminal & Variable State</span>
+            <span id="workflow-run-status" class="status-badge status-idle">Idle</span>
+          </div>
+          <div id="workflow-log-output" class="terminal-box">
+            Select a collection and click "Run Full Quest Pipeline" to execute the game lifecycle.
+          </div>
+        </div>
+      </section>
+    </main>
+  </div>
+
+  <!-- Import Modal -->
+  <div id="modal-import" class="modal-overlay hidden">
+    <div class="modal-card">
+      <div class="modal-header">
+        <h3>📥 Import APIs</h3>
+        <button class="btn-close" data-close="modal-import">✕</button>
+      </div>
+      <div class="modal-body">
+        <div class="import-tabs">
+          <button class="import-tab active" data-imptype="curl">cURL Command</button>
+          <button class="import-tab" data-imptype="postman">Postman JSON</button>
+          <button class="import-tab" data-imptype="http">RFC .http File</button>
+          <button class="import-tab" data-imptype="markdown">Markdown Docs</button>
+        </div>
+
+        <div class="form-group">
+          <label>Target Collection Name:</label>
+          <input type="text" id="import-col-name" placeholder="Imported APIs" value="Imported APIs">
+        </div>
+
+        <div class="form-group">
+          <label>Paste content or command:</label>
+          <textarea id="import-content" class="code-editor" rows="10" placeholder="curl -X POST https://api.game.io/v1/auth -H 'Content-Type: application/json' -d '{...}'"></textarea>
+        </div>
+      </div>
+      <div class="modal-footer">
+        <button class="btn btn-secondary" data-close="modal-import">Cancel</button>
+        <button id="btn-do-import" class="btn btn-primary">Process Import</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- Export Modal -->
+  <div id="modal-export" class="modal-overlay hidden">
+    <div class="modal-card">
+      <div class="modal-header">
+        <h3>📤 Export APIs</h3>
+        <button class="btn-close" data-close="modal-export">✕</button>
+      </div>
+      <div class="modal-body">
+        <div class="form-group">
+          <label>Export Format:</label>
+          <select id="export-format-select">
+            <option value="curl">cURL Commands</option>
+            <option value="http">RFC 7230 .http File</option>
+            <option value="postman">Postman Collection v2.1 (JSON)</option>
+            <option value="fetch">JavaScript (fetch)</option>
+            <option value="python">Python (urllib zero-dependency)</option>
+          </select>
+        </div>
+
+        <div class="form-group">
+          <label>Select Scope:</label>
+          <div class="scope-radios">
+            <label><input type="radio" name="export_scope" value="current" checked> Current Active Request</label>
+            <label><input type="radio" name="export_scope" value="collection"> All APIs in Active Collection</label>
+          </div>
+        </div>
+
+        <div class="form-group">
+          <div class="pane-subheader">
+            <span>Generated Export</span>
+            <button id="btn-copy-export-modal" class="btn-xs">📋 Copy to Clipboard</button>
+          </div>
+          <textarea id="export-result-text" class="code-editor" rows="10" readonly></textarea>
+        </div>
+      </div>
+      <div class="modal-footer">
+        <button class="btn btn-secondary" data-close="modal-export">Close</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- Environment Manager Modal -->
+  <div id="modal-env" class="modal-overlay hidden">
+    <div class="modal-card modal-lg">
+      <div class="modal-header">
+        <h3>⚙️ Environment & Variable Vault</h3>
+        <button class="btn-close" data-close="modal-env">✕</button>
+      </div>
+      <div class="modal-body">
+        <div class="env-manager-layout">
+          <div class="env-list-side">
+            <div class="env-list-header">
+              <span>Environments</span>
+              <button id="btn-create-env" class="btn-xs btn-primary">+ New</button>
+            </div>
+            <div id="env-items-list" class="env-items-list"></div>
+          </div>
+          <div class="env-edit-side">
+            <div class="form-group">
+              <label>Environment Name:</label>
+              <input type="text" id="env-edit-name">
+            </div>
+            <div class="form-group">
+              <label>Variables (JSON key-value):</label>
+              <textarea id="env-edit-vars" class="code-editor" rows="12"></textarea>
+            </div>
+            <div class="env-edit-actions">
+              <button id="btn-save-env" class="btn btn-primary">Save Environment</button>
+              <button id="btn-delete-env" class="btn btn-danger">Delete</button>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Toast Notification Container -->
+  <div id="toast-container" class="toast-container"></div>
+
+  <!-- Scripts -->
+  <script type="module" src="/js/app.js"></script>
+</body>
+</html>
