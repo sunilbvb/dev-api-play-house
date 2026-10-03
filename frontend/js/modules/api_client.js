@@ -84,4 +84,9 @@ export const apiClient = {
   generateSideQuests: (requestId) => request('/api/fuzzer/generate-side-quests', { method: 'POST', body: { request_id: requestId } }),
   getReplayFrames: () => request('/api/replay/frames'),
   exportReplayTape: () => request('/api/replay/export', { method: 'POST' }),
+
+  // Auto-Documentation & Test Advisor
+  generateApiDocs: (payload) => request('/api/docs/generate', { method: 'POST', body: payload }),
+  analyzeTestWays: (payload) => request('/api/advisor/analyze-test-ways', { method: 'POST', body: payload }),
+  runTestWays: (payload) => request('/api/advisor/run-test-ways', { method: 'POST', body: payload }),
 };

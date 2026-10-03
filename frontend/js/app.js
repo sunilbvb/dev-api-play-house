@@ -8,6 +8,8 @@ import { HouseManager } from './modules/house/house_manager.js';
 import { TrophyManager } from './modules/trophies/trophy_manager.js';
 import { CoopManager } from './modules/coop/coop_manager.js';
 import { ReplayManager } from './modules/replay/replay_manager.js';
+import { DocManager } from './modules/docs/doc_manager.js';
+import { AdvisorManager } from './modules/advisor/advisor_manager.js';
 
 class App {
   constructor() {
@@ -24,6 +26,8 @@ class App {
     this.trophies = new TrophyManager(this);
     this.coop = new CoopManager(this);
     this.replay = new ReplayManager(this);
+    this.docs = new DocManager(this);
+    this.advisor = new AdvisorManager(this);
 
     this.initNavigation();
   }

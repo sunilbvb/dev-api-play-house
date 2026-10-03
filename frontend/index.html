@@ -140,6 +140,8 @@
                 <button class="sub-tab active" data-subtab="headers">Headers (<span id="header-count">0</span>)</button>
                 <button class="sub-tab" data-subtab="body">Body</button>
                 <button class="sub-tab" data-subtab="extracts">Extract Rules (<span id="extract-count">0</span>)</button>
+                <button class="sub-tab" data-subtab="docs">📖 Docs (<span id="doc-status-badge" class="badge-mini">None</span>)</button>
+                <button class="sub-tab" data-subtab="advisor">🧪 Test Matrix (<span id="test-ways-count-badge" class="badge-mini">Advisor</span>)</button>
               </div>
 
               <!-- Headers Editor -->
@@ -166,6 +168,35 @@
                 <p class="section-hint">Extract values from response into environment variables for subsequent APIs (e.g. Auth tokens, Player IDs):</p>
                 <div class="key-value-list" id="extracts-list"></div>
                 <button id="btn-add-extract" class="btn-sm btn-outline">+ Add Extraction Rule</button>
+              </div>
+
+              <!-- Documentation Generator -->
+              <div id="subtab-docs" class="subtab-content">
+                <div class="doc-toolbar">
+                  <div class="doc-toolbar-left">
+                    <button id="btn-auto-generate-doc" class="btn-sm btn-arcade">⚡ Auto-Fill Documentation from API</button>
+                    <button id="btn-copy-doc" class="btn-xs">📋 Copy Markdown</button>
+                  </div>
+                  <span class="section-hint">Markdown format with route, params, headers, schema, status codes & QA notes.</span>
+                </div>
+                <textarea id="api-doc-markdown" class="code-editor" rows="14" placeholder="# API Documentation&#10;Click 'Auto-Fill Documentation from API' to generate complete markdown spec."></textarea>
+              </div>
+
+              <!-- Test Matrix & Strategy Advisor -->
+              <div id="subtab-advisor" class="subtab-content">
+                <div class="advisor-toolbar">
+                  <div>
+                    <h4 style="color:var(--text-bright); font-size:13px;">🎯 Multi-Way API Testing Matrix</h4>
+                    <span class="section-hint">Autonomous strategy advisor analyzes route and generates recommended test dimensions.</span>
+                  </div>
+                  <div style="display:flex; align-items:center; gap:8px;">
+                    <span id="test-matrix-score" class="status-badge status-idle">Not Tested</span>
+                    <button id="btn-run-all-test-ways" class="btn btn-primary btn-sm">▶ Execute All Test Scenarios</button>
+                  </div>
+                </div>
+                <div id="test-ways-scenarios-list" class="test-ways-list">
+                  <!-- Rendered by JS -->
+                </div>
               </div>
             </div>
           </div>

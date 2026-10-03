@@ -48,10 +48,17 @@ def init_db():
         order_idx INTEGER DEFAULT 0,
         extracts_json TEXT DEFAULT '[]',
         assertions_json TEXT DEFAULT '[]',
+        documentation TEXT DEFAULT '',
         created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
         FOREIGN KEY (collection_id) REFERENCES collections(id) ON DELETE CASCADE
     );
     """)
+
+    # Safe migration for existing databases
+    try:
+        cursor.execute("ALTER TABLE requests ADD COLUMN documentation TEXT DEFAULT ''")
+    except Exception:
+        pass
 
     cursor.execute("""
     CREATE TABLE IF NOT EXISTS history (

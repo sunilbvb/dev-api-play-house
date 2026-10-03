@@ -20,3 +20,18 @@ If an endpoint declares an extraction rule (e.g., extracting `jwt_token` from re
 
 ### 4. How do I switch environments?
 Use the **ENV** dropdown selector in the top bar. You can click the ⚙️ icon to view all variables, add new environments (e.g. `Staging`, `Production`), or edit existing keys in JSON format.
+
+### 5. How does the tool auto-generate API documentation?
+The tool inspects the HTTP method, URL path tokens, query string parameters, headers, and request body JSON schema. Clicking **"⚡ Auto-Fill Documentation from API"** automatically produces a full Markdown document containing parameter specifications, request/response schema tables, expected HTTP status codes, and QA checklists.
+
+### 6. What is the Test Matrix Advisor and how does it determine test ways?
+The Strategy Advisor inspects the API contract and calculates the exact count of critical test scenarios (typically 6–8 dimensions):
+1. *Happy Path Baseline* (200 OK)
+2. *Missing Auth Credentials* (Security 401 gate)
+3. *HTTP Method Safety* (e.g., DELETE on GET)
+4. *Empty Payload Fuzz* (400 validation)
+5. *Malformed JSON Syntax* (Parser integrity)
+6. *Type Inversion & Null Injection* (Type safety)
+7. *SQL Injection & XSS Sanitization* (Security)
+8. *Performance SLA Benchmark* (< 500ms agility)
+Testers can execute all scenarios with 1 click to verify backend robustness.

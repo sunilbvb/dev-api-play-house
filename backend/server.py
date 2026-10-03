@@ -28,6 +28,8 @@ from .coop import CoopHub
 from .fuzzer import SideQuestGenerator
 from .replay import ReplayRecorder
 from .trophies import TrophyEngine
+from .docs_generator import ApiDocGenerator
+from .advisor import TestAdvisor
 from .exporters import (
     to_curl,
     to_http_raw,
@@ -595,6 +597,66 @@ class PlayhouseRequestHandler(http.server.SimpleHTTPRequestHandler):
                 conn.commit()
                 self._send_json({"status": "generated", "side_quests": [q["name"] for q in quests]}, status=201)
 
+            elif path == "/api/docs/generate":
+                req_id = body.get("request_id")
+                req_data = body.get("request")
+                if req_id and not req_data:
+                    cursor.execute("SELECT * FROM requests WHERE id = ?", (req_id,))
+                    row = cursor.fetchone()
+                    if row:
+                        req_data = dict(row)
+                        req_data["headers"] = json.loads(req_data.get("headers_json", "{}") or "{}")
+                        req_data["extracts"] = json.loads(req_data.get("extracts_json", "[]") or "[]")
+
+                if not req_data:
+                    return self._send_json({"error": "No API request provided"}, status=400)
+
+                doc_md = ApiDocGenerator.generate_markdown_docs(req_data)
+
+                # Persist to database if req_id provided
+                if req_id:
+                    cursor.execute("UPDATE requests SET documentation = ? WHERE id = ?", (doc_md, req_id))
+                    conn.commit()
+
+                self._send_json({"status": "generated", "documentation": doc_md})
+
+            elif path == "/api/advisor/analyze-test-ways":
+                req_id = body.get("request_id")
+                req_data = body.get("request")
+                if req_id and not req_data:
+                    cursor.execute("SELECT * FROM requests WHERE id = ?", (req_id,))
+                    row = cursor.fetchone()
+                    if row:
+                        req_data = dict(row)
+                        req_data["headers"] = json.loads(req_data.get("headers_json", "{}") or "{}")
+
+                if not req_data:
+                    return self._send_json({"error": "No API request provided"}, status=400)
+
+                analysis = TestAdvisor.analyze_test_ways(req_data)
+                self._send_json(analysis)
+
+            elif path == "/api/advisor/run-test-ways":
+                req_id = body.get("request_id")
+                req_data = body.get("request")
+                if req_id and not req_data:
+                    cursor.execute("SELECT * FROM requests WHERE id = ?", (req_id,))
+                    row = cursor.fetchone()
+                    if row:
+                        req_data = dict(row)
+                        req_data["headers"] = json.loads(req_data.get("headers_json", "{}") or "{}")
+
+                if not req_data:
+                    return self._send_json({"error": "No API request provided"}, status=400)
+
+                # Fetch active environment variables
+                cursor.execute("SELECT variables_json FROM environments WHERE is_active = 1 LIMIT 1")
+                env_row = cursor.fetchone()
+                variables = json.loads(env_row["variables_json"]) if env_row else {}
+
+                results = TestAdvisor.run_all_test_ways(req_data, variables)
+                self._send_json(results)
+
             else:
                 self._send_json({"error": "Endpoint not found"}, status=404)
         finally:
@@ -634,11 +696,20 @@ class PlayhouseRequestHandler(http.server.SimpleHTTPRequestHandler):
                 body_type = body.get("body_type", "json")
                 extracts = json.dumps(body.get("extracts", []))
 
-                cursor.execute("""
-                UPDATE requests
-                SET name = ?, method = ?, url = ?, headers_json = ?, body = ?, body_type = ?, extracts_json = ?
-                WHERE id = ?
-                """, (name, method, url, headers, req_body, body_type, extracts, req_id))
+                doc = body.get("documentation")
+
+                if doc is not None:
+                    cursor.execute("""
+                    UPDATE requests
+                    SET name = ?, method = ?, url = ?, headers_json = ?, body = ?, body_type = ?, extracts_json = ?, documentation = ?
+                    WHERE id = ?
+                    """, (name, method, url, headers, req_body, body_type, extracts, doc, req_id))
+                else:
+                    cursor.execute("""
+                    UPDATE requests
+                    SET name = ?, method = ?, url = ?, headers_json = ?, body = ?, body_type = ?, extracts_json = ?
+                    WHERE id = ?
+                    """, (name, method, url, headers, req_body, body_type, extracts, req_id))
                 conn.commit()
                 self._send_json({"status": "updated", "id": req_id})
 

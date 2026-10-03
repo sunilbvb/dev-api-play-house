@@ -1191,4 +1191,79 @@ pre code {
   color: var(--text-muted);
 }
 
+/* Documentation & Test Advisor Toolbar & Styles */
+.badge-mini {
+  font-size: 10px;
+  background: var(--bg-card);
+  padding: 1px 5px;
+  border-radius: 8px;
+  color: var(--accent-cyan);
+}
+
+.doc-toolbar, .advisor-toolbar {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 10px;
+  padding-bottom: 8px;
+  border-bottom: 1px solid var(--border-color);
+}
+.doc-toolbar-left {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.test-ways-list {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  overflow-y: auto;
+  max-height: 480px;
+}
+
+.test-scenario-card {
+  background: var(--bg-dark);
+  border: 1px solid var(--border-color);
+  border-radius: 6px;
+  padding: 10px 12px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+  transition: border-color 0.2s;
+}
+.test-scenario-card:hover {
+  border-color: var(--accent-blue);
+}
+
+.test-sc-title {
+  font-size: 12px;
+  font-weight: 700;
+  color: var(--text-bright);
+}
+.test-sc-cat {
+  font-size: 10px;
+  font-family: var(--font-mono);
+  color: var(--accent-purple);
+  background: rgba(188, 140, 255, 0.1);
+  padding: 1px 6px;
+  border-radius: 3px;
+}
+.test-sc-desc {
+  font-size: 11px;
+  color: var(--text-muted);
+  margin-top: 3px;
+}
+.test-sc-expected {
+  font-size: 11px;
+  font-family: var(--font-mono);
+  color: var(--accent-cyan);
+  margin-top: 4px;
+}
+.sc-status-box {
+  min-width: 140px;
+  text-align: right;
+}
+
 .hidden { display: none !important; }

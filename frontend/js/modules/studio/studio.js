@@ -126,6 +126,16 @@ export class Studio {
     });
     document.getElementById('extract-count').textContent = extracts.length;
 
+    // Load documentation
+    if (this.app.docs) {
+      this.app.docs.loadDocumentation(req.documentation || '');
+    }
+
+    // Load test advisor strategy
+    if (this.app.advisor) {
+      this.app.advisor.loadTestWays(req);
+    }
+
     // If currently viewing code format, refresh it
     if (this.currentFormat !== 'builder') {
       this.switchFormat(this.currentFormat);
@@ -191,6 +201,9 @@ export class Studio {
       if (target) extracts.push({ target, source, path });
     });
 
+    const docEl = document.getElementById('api-doc-markdown');
+    const docContent = docEl ? docEl.value : '';
+
     return {
       id: this.currentRequest ? this.currentRequest.id : null,
       name: this.nameInput.value.trim() || 'Untitled Request',
@@ -199,7 +212,8 @@ export class Studio {
       headers: headers,
       body: this.bodyText.value,
       body_type: 'json',
-      extracts: extracts
+      extracts: extracts,
+      documentation: docContent
     };
   }
 
