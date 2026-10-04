@@ -20,20 +20,26 @@
       </div>
     </div>
 
-    <!-- Mode Switcher -->
+    <!-- Main Top Navigation (Matches User Design) -->
     <div class="view-tabs">
-      <button class="nav-tab active" data-tab="studio">
-        <span class="icon">⚡</span> API Studio
+      <button class="nav-tab active" data-tab="playground">
+        <span class="icon">🎮</span> Playground
       </button>
-      <button class="nav-tab" data-tab="workflow">
-        <span class="icon">🗺️</span> Game Quest & Workflow
+      <button class="nav-tab" data-tab="docs" data-docs-sec="documentation">
+        <span class="icon">📖</span> Documentation
       </button>
-      <button class="nav-tab" data-tab="realtime">
-        <span class="icon">📡</span> Real-time (WS/SSE)
+      <button class="nav-tab" data-tab="docs" data-docs-sec="setup">
+        <span class="icon">🚀</span> Server Setup
       </button>
-      <button class="nav-tab" data-tab="docs">
-        <span class="icon">📖</span> Docs & Setup
+      <button class="nav-tab" data-tab="docs" data-docs-sec="architecture">
+        <span class="icon">🏰</span> Architecture
       </button>
+      <button class="nav-tab" data-tab="docs" data-docs-sec="api_ref">
+        <span class="icon">💻</span> API
+      </button>
+      <a href="https://github.com/sunil-bakale/dev-api-play-house" target="_blank" rel="noopener noreferrer" class="nav-link-github" title="View Source on GitHub">
+        GitHub ↗
+      </a>
     </div>
 
     <!-- Environment & Quick Actions -->
@@ -60,6 +66,14 @@
       </button>
     </div>
   </header>
+
+  <!-- Playground Sub-Navigation Bar -->
+  <div id="playground-subbar" class="playground-subbar">
+    <span class="subbar-label">PLAYGROUND MODES:</span>
+    <button class="subnav-btn active" data-play-tab="studio">⚡ API Studio</button>
+    <button class="subnav-btn" data-play-tab="workflow">🗺️ Game Quest & Workflow</button>
+    <button class="subnav-btn" data-play-tab="realtime">📡 Real-Time (WS/SSE)</button>
+  </div>
 
   <!-- Co-op Multiplayer Live Ticker -->
   <div class="coop-bar">
@@ -358,62 +372,343 @@
               <span class="icon">📚</span>
               <h4>Docs & Knowledge Hub</h4>
             </div>
+
             <div class="docs-nav-group">
-              <span class="docs-group-title">GETTING STARTED</span>
-              <button class="docs-nav-item active" data-docs-section="setup">
-                <span class="icon">🚀</span> Server Setup & CLI
+              <span class="docs-group-title">OVERVIEW & GETTING STARTED</span>
+              <button class="docs-nav-item active" data-docs-section="documentation">
+                <span class="icon">📖</span> Documentation & Readme
               </button>
-              <button class="docs-nav-item" data-docs-section="architecture">
-                <span class="icon">🏰</span> Architecture & DAG
+              <button class="docs-nav-item" data-docs-section="features">
+                <span class="icon">✨</span> Core Features (14 Engines)
+              </button>
+              <button class="docs-nav-item" data-docs-section="use_cases">
+                <span class="icon">🎯</span> Use Cases & Testing
+              </button>
+              <button class="docs-nav-item" data-docs-section="platforms">
+                <span class="icon">🖥️</span> Supported Platforms
               </button>
             </div>
 
             <div class="docs-nav-group">
-              <span class="docs-group-title">FEATURES & TESTING</span>
+              <span class="docs-group-title">INSTALLATION & SPECS</span>
+              <button class="docs-nav-item" data-docs-section="setup">
+                <span class="icon">🚀</span> Server Setup & Installing
+              </button>
+              <button class="docs-nav-item" data-docs-section="requirements">
+                <span class="icon">📋</span> System Requirements
+              </button>
+              <button class="docs-nav-item" data-docs-section="dependencies">
+                <span class="icon">📦</span> Dependencies (Zero-Pip)
+              </button>
+              <button class="docs-nav-item" data-docs-section="versions">
+                <span class="icon">🏷️</span> Versions & Compatibility
+              </button>
+              <button class="docs-nav-item" data-docs-section="changelogs">
+                <span class="icon">📝</span> Change Logs
+              </button>
+            </div>
+
+            <div class="docs-nav-group">
+              <span class="docs-group-title">SYSTEM SPECS & API</span>
+              <button class="docs-nav-item" data-docs-section="architecture">
+                <span class="icon">🏰</span> Architecture & DAG
+              </button>
               <button class="docs-nav-item" data-docs-section="qa_playbook">
                 <span class="icon">🧪</span> QA & Test Strategy
               </button>
               <button class="docs-nav-item" data-docs-section="api_ref">
                 <span class="icon">💻</span> REST API Reference
               </button>
+              <button class="docs-nav-item" data-docs-section="live_docs">
+                <span class="icon">📄</span> Live Markdown Docs
+              </button>
             </div>
 
             <div class="docs-nav-group">
-              <span class="docs-group-title">REPOSITORY DOCS</span>
-              <button class="docs-nav-item" data-docs-section="live_docs">
-                <span class="icon">📄</span> Live Markdown Docs
+              <span class="docs-group-title">COMMUNITY & GOVERNANCE</span>
+              <button class="docs-nav-item" data-docs-section="contributing">
+                <span class="icon">🤝</span> Contributing Guide
+              </button>
+              <button class="docs-nav-item" data-docs-section="license">
+                <span class="icon">📜</span> Open-Source License
+              </button>
+              <button class="docs-nav-item" data-docs-section="owner">
+                <span class="icon">👤</span> Owner & Authors
               </button>
             </div>
           </nav>
 
           <!-- Right Docs Content Area -->
           <div class="docs-content-container">
-            <!-- Section 1: Server Setup & CLI -->
-            <div id="docs-sec-setup" class="docs-section-panel active">
+            <!-- 1. Documentation & Readme Section -->
+            <div id="docs-sec-documentation" class="docs-section-panel active">
               <div class="docs-panel-header">
-                <h2>🚀 Server Setup & Headless CLI Guide</h2>
-                <span class="badge-pill">Zero Pip Dependencies (100% Python Stdlib)</span>
+                <h2>📖 Documentation & Readme Overview</h2>
+                <span class="badge-pill">Open-Source & Zero-Dependency</span>
               </div>
 
               <div class="docs-card">
-                <h3>System Requirements</h3>
-                <p>Dev API Play House runs out-of-the-box on Linux, macOS, and Windows. No <code>pip install</code>, npm, or Docker container required.</p>
+                <h3>👾 About Dev API Play House</h3>
+                <p>
+                  <strong>Dev API Play House</strong> is an open-source, zero-dependency API management suite, interactive developer playground, and gamified lifecycle DAG engine. It bridges the gap between static, disconnected API runners (like Postman or Insomnia) and real-world system lifecycle dependencies.
+                </p>
+                <p>
+                  Instead of running isolated requests, Dev API Play House autonomously discovers authentication prerequisites, token extraction rules, and multi-step state cycles, mapping your endpoints into an interactive, gamified <strong>Game House</strong> dungeon featuring dynamic rooms, vitals HUD, and Raid Boss battles.
+                </p>
                 <div class="doc-checklist">
-                  <div class="check-item">✅ <strong>Python 3.8+</strong> (Standard Library: <code>http.server</code>, <code>urllib.request</code>, <code>sqlite3</code>, <code>json</code>, <code>ssl</code>)</div>
-                  <div class="check-item">✅ <strong>Modern Web Browser</strong> (Chrome, Firefox, Safari, Edge with ES6 Module support)</div>
-                  <div class="check-item">✅ <strong>Zero Third-Party Packages</strong> (0 external vulnerabilities, instant startup in &lt;100ms)</div>
+                  <div class="check-item">🛡️ <strong>100% Python Standard Library</strong> — Zero pip packages, zero npm builds, 0 external CVE vulnerabilities.</div>
+                  <div class="check-item">⚡ <strong>Sub-Millisecond Engine</strong> — Embedded SQLite3 and pure socket-level urllib HTTP client.</div>
+                  <div class="check-item">🗺️ <strong>Autonomous DAG Dependency Engine</strong> — Automatically sequences login, player setup, actions, and scoring.</div>
+                  <div class="check-item">🧪 <strong>Built-in QA Advisor & Auto-Documentation</strong> — 1-click Markdown specs and 6–8 dimensional test matrices.</div>
                 </div>
+              </div>
+
+              <div class="docs-card">
+                <h3>🎮 Core Mission & Philosophical Pillars</h3>
+                <div class="house-rooms-grid">
+                  <div class="room-card">
+                    <span class="room-icon">🎯</span>
+                    <h4>Autonomous Flow Solving</h4>
+                    <p>APIs shouldn't require manual copy-pasting of tokens across tabs. The tool resolves dependencies topographically and auto-chains runtime memory.</p>
+                  </div>
+                  <div class="room-card">
+                    <span class="room-icon">🏰</span>
+                    <h4>Gamified Quality Metrics</h4>
+                    <p>Transform boring test results into a living House HP meter, XP rewards, and Raid Boss conditions that motivate high-quality engineering.</p>
+                  </div>
+                  <div class="room-card">
+                    <span class="room-icon">📥</span>
+                    <h4>Universal Ingestion</h4>
+                    <p>Import anything: cURL, Postman Collections/Environments, OpenAPI 3.0/Swagger 2.0, RFC 7230 .http files, or raw Markdown documentation.</p>
+                  </div>
+                  <div class="room-card">
+                    <span class="room-icon">🤖</span>
+                    <h4>Frictionless CI Automation</h4>
+                    <p>Zero-configuration headless CLI runner (<code>python3 app.py --cli --min-hp 80</code>) ready for GitHub Actions, GitLab CI, and Jenkins.</p>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            <!-- 2. Core Features (14 Engines) -->
+            <div id="docs-sec-features" class="docs-section-panel">
+              <div class="docs-panel-header">
+                <h2>✨ Core Features Matrix (14 Engines)</h2>
+                <span class="badge-pill">Production Ready</span>
+              </div>
+
+              <div class="docs-card">
+                <h3>14 Full-Stack Engines Built Right In</h3>
+                <table class="docs-table">
+                  <thead>
+                    <tr>
+                      <th>Engine</th>
+                      <th>Capability</th>
+                      <th>Highlight</th>
+                    </tr>
+                  </thead>
+                  <tbody>
+                    <tr>
+                      <td><strong>1. Universal Importer</strong></td>
+                      <td>cURL, Postman v2/v2.1, OpenAPI 3.0/3.1, Swagger 2.0, RFC 7230 .http, Markdown</td>
+                      <td>1-click multi-format parsing into unified SQLite schema</td>
+                    </tr>
+                    <tr>
+                      <td><strong>2. Autonomous DAG Solver</strong></td>
+                      <td>Topological dependency resolution with cycle prevention</td>
+                      <td>Prioritizes Auth &rarr; Player &rarr; Gameplay &rarr; Leaderboard</td>
+                    </tr>
+                    <tr>
+                      <td><strong>3. Auto Game House Builder</strong></td>
+                      <td>Raw URLs / workspace &rarr; Themed Game Rooms (Gates, Armory, Coliseum, Vault)</td>
+                      <td>Auto-generates XP, House HP, and Raid Boss conditions</td>
+                    </tr>
+                    <tr>
+                      <td><strong>4. Dynamic Variable Vault</strong></td>
+                      <td>Runtime memory chaining with macro generators (<code>{{$guid}}</code>, <code>{{$timestamp}}</code>)</td>
+                      <td>Body dot-path, headers, regex, and status extraction</td>
+                    </tr>
+                    <tr>
+                      <td><strong>5. Multi-Format Studio</strong></td>
+                      <td>Interactive request composer with 1-click code generators</td>
+                      <td>Outputs cURL, Raw HTTP, Fetch, Python stdlib, Postman JSON</td>
+                    </tr>
+                    <tr>
+                      <td><strong>6. Multi-Environment Vault</strong></td>
+                      <td>Manage Development, Staging, Production variables with instant switching</td>
+                      <td>Stored locally in SQLite with zero cloud lock-in</td>
+                    </tr>
+                    <tr>
+                      <td><strong>7. Boss Enrage Mode</strong></td>
+                      <td>Chaos Monkey failure simulator (latency spikes, 429 throttling, 500 crashes)</td>
+                      <td>Stress-tests client resilience against hostile networks</td>
+                    </tr>
+                    <tr>
+                      <td><strong>8. Offline Mock Game Server</strong></td>
+                      <td>Dynamic sandbox server under <code>/mock/*</code></td>
+                      <td>Develop and test without active backend or internet</td>
+                    </tr>
+                    <tr>
+                      <td><strong>9. Headless CI Quest Runner</strong></td>
+                      <td>Direct terminal automation: <code>python3 app.py --cli --min-hp 70</code></td>
+                      <td>Enforces health gates in GitHub Actions and Jenkins</td>
+                    </tr>
+                    <tr>
+                      <td><strong>10. Co-op Arena Feed</strong></td>
+                      <td>Local multiplayer live activity ticker & party ping</td>
+                      <td>Track team quest runs and token loots in real-time</td>
+                    </tr>
+                    <tr>
+                      <td><strong>11. Boundary Side Quests</strong></td>
+                      <td>Automated fuzzing: Ghost Attack, Armor Pierce, Overclock Sprint</td>
+                      <td>Instant security sanitization & boundary stress tests</td>
+                    </tr>
+                    <tr>
+                      <td><strong>12. Time-Travel Replay</strong></td>
+                      <td>Frame-by-frame checkpoint recorder and tape exporter</td>
+                      <td>Deterministic bug reproduction and session audits</td>
+                    </tr>
+                    <tr>
+                      <td><strong>13. Developer Trophies</strong></td>
+                      <td>Gamified achievements (Speed Demon, First Blood, Iron Gatekeeper)</td>
+                      <td>Rewards developers for high agility and reliable APIs</td>
+                    </tr>
+                    <tr>
+                      <td><strong>14. Real-Time WS/SSE Studio</strong></td>
+                      <td>Native WebSocket (<code>ws://</code>, <code>wss://</code>) and Server-Sent Events monitor</td>
+                      <td>Bidirectional message frames, payload sender, and stream log</td>
+                    </tr>
+                  </tbody>
+                </table>
+              </div>
+            </div>
+
+            <!-- 3. Use Cases & Testing -->
+            <div id="docs-sec-use_cases" class="docs-section-panel">
+              <div class="docs-panel-header">
+                <h2>🎯 Real-World Use Cases & QA Scenarios</h2>
+                <span class="badge-pill">Enterprise & Indie</span>
+              </div>
+
+              <div class="docs-card">
+                <h3>Where Dev API Play House Shines</h3>
+                <div class="house-rooms-grid">
+                  <div class="room-card">
+                    <span class="room-icon">🎮</span>
+                    <h4>1. Game Backend Lifecycle Testing</h4>
+                    <p>Validate strict player progression: account authentication &rarr; character creation &rarr; inventory equip &rarr; raid combat &rarr; score calculation without manual state setup.</p>
+                  </div>
+                  <div class="room-card">
+                    <span class="room-icon">🔗</span>
+                    <h4>2. Microservices Contract Chaining</h4>
+                    <p>Verify that upstream auth microservices correctly output JWT tokens and user IDs consumed by downstream billing, cart, and profile microservices.</p>
+                  </div>
+                  <div class="room-card">
+                    <span class="room-icon">🤖</span>
+                    <h4>3. CI/CD Automated Quality Gates</h4>
+                    <p>Integrate <code>python3 app.py --cli --min-hp 80</code> into deployment pipelines. Block release candidate builds if House HP drops below threshold.</p>
+                  </div>
+                  <div class="room-card">
+                    <span class="room-icon">⚡</span>
+                    <h4>4. Chaos & Resilience Engineering</h4>
+                    <p>Activate Boss Enrage mode to inject latency delays, 429 rate-limiting, and 500 internal errors to ensure client retry logic handles network degradation.</p>
+                  </div>
+                  <div class="room-card">
+                    <span class="room-icon">🛡️</span>
+                    <h4>5. Security & Boundary Fuzzing</h4>
+                    <p>Run Side Quests (Ghost Attack, Armor Pierce) to bombard endpoints with SQL injections, script tags, empty bodies, and type flips to uncover unhandled exceptions.</p>
+                  </div>
+                  <div class="room-card">
+                    <span class="room-icon">📱</span>
+                    <h4>6. Offline Mobile / UI Prototyping</h4>
+                    <p>Frontend developers can build client applications against <code>/mock/*</code> routes completely offline with realistic simulated payloads.</p>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            <!-- 4. Supported Platforms -->
+            <div id="docs-sec-platforms" class="docs-section-panel">
+              <div class="docs-panel-header">
+                <h2>🖥️ Supported Platforms</h2>
+                <span class="badge-pill">Cross-Platform Standard</span>
+              </div>
+
+              <div class="docs-card">
+                <h3>Operating Systems</h3>
+                <table class="docs-table">
+                  <thead>
+                    <tr>
+                      <th>Platform</th>
+                      <th>Architectures</th>
+                      <th>Compatibility Status</th>
+                    </tr>
+                  </thead>
+                  <tbody>
+                    <tr>
+                      <td><strong>Linux</strong></td>
+                      <td>x86_64, aarch64, armv7l (Ubuntu, Debian, Fedora, Arch, CentOS, Alpine)</td>
+                      <td><span class="status-badge" style="color:var(--accent-green)">Tier 1 (Native)</span></td>
+                    </tr>
+                    <tr>
+                      <td><strong>macOS</strong></td>
+                      <td>Apple Silicon (M1, M2, M3, M4) & Intel (x86_64) (macOS 10.15+)</td>
+                      <td><span class="status-badge" style="color:var(--accent-green)">Tier 1 (Native)</span></td>
+                    </tr>
+                    <tr>
+                      <td><strong>Windows</strong></td>
+                      <td>x86_64, ARM64 (Windows 10, Windows 11, Windows Server 2019/2022)</td>
+                      <td><span class="status-badge" style="color:var(--accent-green)">Tier 1 (Native)</span></td>
+                    </tr>
+                    <tr>
+                      <td><strong>BSD / Unix</strong></td>
+                      <td>FreeBSD, OpenBSD</td>
+                      <td><span class="status-badge" style="color:var(--accent-green)">Compatible</span></td>
+                    </tr>
+                  </tbody>
+                </table>
+              </div>
+
+              <div class="docs-card">
+                <h3>CI / CD & Container Environments</h3>
+                <p>Because there are zero external pip dependencies, headless execution initializes instantly in any container:</p>
+                <div class="doc-checklist">
+                  <div class="check-item">✅ <strong>GitHub Actions</strong> (Ubuntu, macOS, Windows runners)</div>
+                  <div class="check-item">✅ <strong>GitLab CI / CD</strong> (Docker Alpine / Debian images)</div>
+                  <div class="check-item">✅ <strong>Jenkins</strong> (Linux / Windows agent nodes)</div>
+                  <div class="check-item">✅ <strong>CircleCI / Bitbucket Pipelines / Azure DevOps</strong></div>
+                  <div class="check-item">✅ <strong>Docker</strong> (Ultra-lightweight Alpine container &lt;50MB total)</div>
+                </div>
+              </div>
+
+              <div class="docs-card">
+                <h3>Supported Web Browsers</h3>
+                <p>Pure Vanilla ES6 JavaScript without compilation step. Supports all modern browsers:</p>
+                <ul class="docs-list">
+                  <li>Google Chrome / Chromium 88+</li>
+                  <li>Mozilla Firefox 85+</li>
+                  <li>Apple Safari 14+</li>
+                  <li>Microsoft Edge 88+</li>
+                  <li>Brave, Opera, Vivaldi</li>
+                </ul>
+              </div>
+            </div>
+
+            <!-- 5. Server Setup & Installing -->
+            <div id="docs-sec-setup" class="docs-section-panel">
+              <div class="docs-panel-header">
+                <h2>🚀 Server Setup & Installation Guide</h2>
+                <span class="badge-pill">Zero Pip Dependencies</span>
               </div>
 
               <div class="docs-card">
                 <h3>Quickstart: Run Interactive Web Studio</h3>
-                <p>Launch the local web server and database manager:</p>
                 <div class="code-terminal-box">
                   <code>python3 app.py</code>
                   <button class="btn-xs btn-quick-copy" data-copy-cmd="python3 app.py">📋 Copy</button>
                 </div>
-                <p class="muted">Default address: <a href="http://localhost:8080" target="_blank">http://localhost:8080</a>. Automatically initializes local SQLite schema migrations and sample Arcade Game quest.</p>
-                <p>Custom port or host can be set via environment variables:</p>
+                <p class="muted">Default address: <a href="http://localhost:8080" target="_blank">http://localhost:8080</a>. Automatically initializes local SQLite database and pre-seeds sample Arcade Game Quest.</p>
+                <p>Customize listening port and host via environment variables:</p>
                 <div class="code-terminal-box">
                   <code>PORT=9090 python3 app.py</code>
                   <button class="btn-xs btn-quick-copy" data-copy-cmd="PORT=9090 python3 app.py">📋 Copy</button>
@@ -422,7 +717,6 @@
 
               <div class="docs-card">
                 <h3>Headless CI / CD Pipeline Runner</h3>
-                <p>Execute your Game House quest workflows automatically in CI pipelines (GitHub Actions, GitLab CI, Jenkins):</p>
                 <div class="code-terminal-box">
                   <code>python3 app.py --cli --min-hp 70</code>
                   <button class="btn-xs btn-quick-copy" data-copy-cmd="python3 app.py --cli --min-hp 70">📋 Copy</button>
@@ -439,17 +733,17 @@
                     <tr>
                       <td><code>--cli</code></td>
                       <td>False</td>
-                      <td>Runs in headless automated terminal mode without starting web server.</td>
+                      <td>Runs in headless automated terminal mode without launching the web server.</td>
                     </tr>
                     <tr>
                       <td><code>--min-hp &lt;N&gt;</code></td>
                       <td>80</td>
-                      <td>Required minimum House HP percentage. Exits with code 1 if House HP falls below threshold.</td>
+                      <td>Minimum required House HP percentage (0–100). Exits with code 1 if threshold is not met.</td>
                     </tr>
                     <tr>
                       <td><code>--col &lt;ID/Name&gt;</code></td>
                       <td>1</td>
-                      <td>Specific Collection ID or Collection Name to execute.</td>
+                      <td>Specific Collection ID or name to execute.</td>
                     </tr>
                     <tr>
                       <td><code>--chaos &lt;level&gt;</code></td>
@@ -459,14 +753,264 @@
                     <tr>
                       <td><code>--out &lt;file&gt;</code></td>
                       <td>None</td>
-                      <td>Optional path to export JSON execution summary and tape.</td>
+                      <td>Export execution summary and time-travel tape to a JSON file.</td>
+                    </tr>
+                  </tbody>
+                </table>
+              </div>
+
+              <div class="docs-card">
+                <h3>Step-by-Step Installation Guides</h3>
+                <h4>🐧 Linux (Ubuntu / Debian / Fedora)</h4>
+                <div class="code-terminal-box">
+                  <code>git clone https://github.com/sunil-bakale/dev-api-play-house.git && cd dev-api-play-house && python3 app.py</code>
+                  <button class="btn-xs btn-quick-copy" data-copy-cmd="git clone https://github.com/sunil-bakale/dev-api-play-house.git && cd dev-api-play-house && python3 app.py">📋 Copy</button>
+                </div>
+
+                <h4>🍎 macOS (Apple Silicon & Intel)</h4>
+                <div class="code-terminal-box">
+                  <code>git clone https://github.com/sunil-bakale/dev-api-play-house.git && cd dev-api-play-house && python3 app.py</code>
+                  <button class="btn-xs btn-quick-copy" data-copy-cmd="git clone https://github.com/sunil-bakale/dev-api-play-house.git && cd dev-api-play-house && python3 app.py">📋 Copy</button>
+                </div>
+
+                <h4>🪟 Windows (PowerShell / Command Prompt)</h4>
+                <div class="code-terminal-box">
+                  <code>git clone https://github.com/sunil-bakale/dev-api-play-house.git; cd dev-api-play-house; python app.py</code>
+                  <button class="btn-xs btn-quick-copy" data-copy-cmd="git clone https://github.com/sunil-bakale/dev-api-play-house.git; cd dev-api-play-house; python app.py">📋 Copy</button>
+                </div>
+
+                <h4>🐳 Docker (Ultra-Lightweight Alpine)</h4>
+                <div class="code-terminal-box">
+                  <code>docker run -d -p 8080:8080 -v $(pwd)/playhouse.db:/app/playhouse.db dev-api-play-house</code>
+                  <button class="btn-xs btn-quick-copy" data-copy-cmd="docker run -d -p 8080:8080 -v $(pwd)/playhouse.db:/app/playhouse.db dev-api-play-house">📋 Copy</button>
+                </div>
+              </div>
+            </div>
+
+            <!-- 6. System Requirements -->
+            <div id="docs-sec-requirements" class="docs-section-panel">
+              <div class="docs-panel-header">
+                <h2>📋 System Requirements & Footprint</h2>
+                <span class="badge-pill">Ultra-Lightweight</span>
+              </div>
+
+              <div class="docs-card">
+                <h3>Hardware Specifications</h3>
+                <table class="docs-table">
+                  <thead>
+                    <tr>
+                      <th>Resource</th>
+                      <th>Minimum</th>
+                      <th>Recommended</th>
+                    </tr>
+                  </thead>
+                  <tbody>
+                    <tr>
+                      <td><strong>CPU</strong></td>
+                      <td>1 Virtual Core (x86_64 or ARM)</td>
+                      <td>2+ Cores</td>
+                    </tr>
+                    <tr>
+                      <td><strong>RAM</strong></td>
+                      <td>50 MB RAM</td>
+                      <td>256 MB RAM</td>
+                    </tr>
+                    <tr>
+                      <td><strong>Disk Space</strong></td>
+                      <td>10 MB (codebase + initial SQLite database)</td>
+                      <td>100 MB (large replay tapes & history)</td>
+                    </tr>
+                    <tr>
+                      <td><strong>Network</strong></td>
+                      <td>Local loopback (<code>127.0.0.1</code>)</td>
+                      <td>LAN or Internet for testing external APIs</td>
+                    </tr>
+                  </tbody>
+                </table>
+              </div>
+
+              <div class="docs-card">
+                <h3>Software Prerequisites</h3>
+                <div class="doc-checklist">
+                  <div class="check-item">✅ <strong>Python 3.8 or higher</strong> (Compatible with Python 3.8, 3.9, 3.10, 3.11, 3.12, 3.13, 3.14).</div>
+                  <div class="check-item">✅ <strong>No Package Managers Required</strong> — No <code>pip install</code>, no <code>npm</code>, no <code>yarn</code>, no <code>cargo</code>.</div>
+                  <div class="check-item">✅ <strong>No External Database Engine</strong> — Uses embedded SQLite3 database directly.</div>
+                </div>
+              </div>
+            </div>
+
+            <!-- 7. Dependencies (Zero-Pip Stdlib) -->
+            <div id="docs-sec-dependencies" class="docs-section-panel">
+              <div class="docs-panel-header">
+                <h2>📦 Dependencies (Zero-Pip Architecture)</h2>
+                <span class="badge-pill">100% Python Standard Library</span>
+              </div>
+
+              <div class="docs-card">
+                <h3>Zero Third-Party Packages Guarantee</h3>
+                <p>
+                  Dev API Play House adheres to a strict engineering standard: <strong>ZERO third-party pip dependencies</strong>. This guarantees instant startup, zero supply-chain security vulnerabilities, and zero installation friction across air-gapped or high-security enterprise networks.
+                </p>
+                <table class="docs-table">
+                  <thead>
+                    <tr>
+                      <th>Standard Library Module</th>
+                      <th>Purpose in Dev API Play House</th>
+                    </tr>
+                  </thead>
+                  <tbody>
+                    <tr>
+                      <td><code>http.server</code></td>
+                      <td>Provides HTTP server routing, REST API controllers, and frontend asset delivery.</td>
+                    </tr>
+                    <tr>
+                      <td><code>urllib.request</code> & <code>urllib.parse</code></td>
+                      <td>Socket-level HTTP client executing requests with precision sub-millisecond elapsed tracking.</td>
+                    </tr>
+                    <tr>
+                      <td><code>sqlite3</code></td>
+                      <td>Embedded ACID-compliant relational storage with schema migrations.</td>
+                    </tr>
+                    <tr>
+                      <td><code>json</code></td>
+                      <td>Parsing and serialization for payloads, Postman files, and OpenAPI specs.</td>
+                    </tr>
+                    <tr>
+                      <td><code>re</code></td>
+                      <td>Regular expression engine for cURL parsing, variable extraction, and token substitution.</td>
+                    </tr>
+                    <tr>
+                      <td><code>ssl</code></td>
+                      <td>Built-in TLS/SSL context management for secure HTTPS endpoints.</td>
+                    </tr>
+                    <tr>
+                      <td><code>hashlib</code></td>
+                      <td>Cryptographic hashing for request signatures and caching.</td>
+                    </tr>
+                    <tr>
+                      <td><code>uuid</code></td>
+                      <td>RFC 4122 UUID v4 generation for dynamic <code>{{$guid}}</code> macros.</td>
+                    </tr>
+                    <tr>
+                      <td><code>time</code></td>
+                      <td>Epoch timestamps, SLA latency benchmarks, and millisecond metrics.</td>
+                    </tr>
+                    <tr>
+                      <td><code>copy</code></td>
+                      <td>Deep copying of request objects during fuzzing and chaos injection.</td>
+                    </tr>
+                    <tr>
+                      <td><code>os</code> & <code>sys</code></td>
+                      <td>Path resolution, backward compatibility shims, and CLI argument parsing.</td>
                     </tr>
                   </tbody>
                 </table>
               </div>
             </div>
 
-            <!-- Section 2: Architecture & DAG -->
+            <!-- 8. Versions & Compatibility -->
+            <div id="docs-sec-versions" class="docs-section-panel">
+              <div class="docs-panel-header">
+                <h2>🏷️ Versions & Release Matrix</h2>
+                <span class="badge-pill">SemVer 2.0.0</span>
+              </div>
+
+              <div class="docs-card">
+                <h3>Release History & Roadmap</h3>
+                <table class="docs-table">
+                  <thead>
+                    <tr>
+                      <th>Version</th>
+                      <th>Release Date</th>
+                      <th>Status</th>
+                      <th>Major Milestones</th>
+                    </tr>
+                  </thead>
+                  <tbody>
+                    <tr>
+                      <td><strong>v1.2.0</strong></td>
+                      <td>Current (Oct 2026)</td>
+                      <td><span class="status-badge" style="color:var(--accent-green)">Active Stable</span></td>
+                      <td>In-App Developer Knowledge Hub, Live Markdown Reader, Real-Time WS/SSE Studio, OpenAPI 3.0/Swagger parser.</td>
+                    </tr>
+                    <tr>
+                      <td><strong>v1.1.0</strong></td>
+                      <td>Oct 2026</td>
+                      <td><span class="status-badge" style="color:var(--accent-cyan)">Stable</span></td>
+                      <td>1-Click Auto-Documentation Generator, Test Strategy Advisor, 7 Expansions (Chaos Monkey, Mock Server, CLI, Co-op, Fuzzer, Replay, Trophies).</td>
+                    </tr>
+                    <tr>
+                      <td><strong>v1.0.0</strong></td>
+                      <td>Oct 2026</td>
+                      <td><span class="status-badge" style="color:var(--text-muted)">Initial</span></td>
+                      <td>Zero-dependency Python server, SQLite engine, Universal Importer (cURL, Postman, .http, Markdown), Autonomous DAG Topo Solver.</td>
+                    </tr>
+                    <tr>
+                      <td><strong>v2.0.0</strong></td>
+                      <td>Q1 2027 (Planned)</td>
+                      <td><span class="status-badge" style="color:var(--accent-yellow)">Roadmap</span></td>
+                      <td>OAuth 2.0 PKCE Automated Wizard, Distributed Co-op LAN Rooms, Interactive GraphQL Live Explorer.</td>
+                    </tr>
+                  </tbody>
+                </table>
+              </div>
+
+              <div class="docs-card">
+                <h3>Python Version Compatibility</h3>
+                <p>Every commit is verified against all supported Python versions:</p>
+                <div class="doc-checklist">
+                  <div class="check-item">✅ <strong>Python 3.8 & 3.9</strong> — Full support (legacy enterprise compatibility).</div>
+                  <div class="check-item">✅ <strong>Python 3.10 & 3.11</strong> — Full support (standard production baseline).</div>
+                  <div class="check-item">✅ <strong>Python 3.12, 3.13 & 3.14</strong> — Full support with modern standard library optimizations.</div>
+                </div>
+              </div>
+            </div>
+
+            <!-- 9. Change Logs -->
+            <div id="docs-sec-changelogs" class="docs-section-panel">
+              <div class="docs-panel-header">
+                <h2>📝 Complete Change Logs</h2>
+                <span class="badge-pill">Version Changelog</span>
+              </div>
+
+              <div class="docs-card">
+                <h3>Version 1.2.0 (Latest Release)</h3>
+                <ul class="docs-list">
+                  <li><strong>In-App Developer Knowledge Hub</strong>: Built comprehensive in-app documentation center directly into <code>index.html</code> with instant navigation between Playground, Documentation, Server Setup, Architecture, and API.</li>
+                  <li><strong>Live Markdown Documentation Reader</strong>: Integrated <code>GET /api/docs/content?name=...</code> endpoint allowing users to view and copy <code>README.md</code>, <code>ARCHITECTURE.md</code>, <code>FAQ.md</code>, and <code>docs/API.md</code> live within the application.</li>
+                  <li><strong>OpenAPI & Swagger Parser</strong>: Full support for OpenAPI 3.0, 3.1, and Swagger 2.0 specifications with automated JSON schema sampling.</li>
+                  <li><strong>Real-Time WebSocket & SSE Live Studio</strong>: Interactive test client for bidirectional WebSockets (<code>ws://</code>, <code>wss://</code>) and Server-Sent Events with live frame monitor, payload sender, and ping actions.</li>
+                </ul>
+              </div>
+
+              <div class="docs-card">
+                <h3>Version 1.1.0</h3>
+                <ul class="docs-list">
+                  <li><strong>1-Click Technical Documentation Generator</strong>: Inspects request headers, path params, and JSON payloads to generate GitHub Markdown documentation specs with QA checklists.</li>
+                  <li><strong>Multi-Way Test Strategy Advisor</strong>: Calculates 6–8 critical testing dimensions (Happy Path, Empty Body, Auth Stripped, Bad Field Types, Method Tampering, Latency SLA) and grades API stability.</li>
+                  <li><strong>Boss Enrage Mode (Chaos Monkey)</strong>: Injects latency delays, 429 throttling, and 500 crashes to test frontend and API client resilience.</li>
+                  <li><strong>Offline Sandbox Mock Game Server</strong>: Provides zero-backend simulation under <code>/mock/*</code> with realistic game state payloads.</li>
+                  <li><strong>Headless CI Quest Runner</strong>: Added <code>python3 app.py --cli --min-hp &lt;N&gt;</code> for automated build pipeline health gates.</li>
+                  <li><strong>Co-op Multiplayer Live Ticker</strong>: Added team activity event ticker and party pings.</li>
+                  <li><strong>Side Quest Fuzzing Generator</strong>: Added Ghost Attack, Armor Pierce, and Overclock Sprint boundary stress tests.</li>
+                  <li><strong>Time-Travel Replay Scrubber</strong>: Checkpoint frame recorder with exportable replay tapes for deterministic debugging.</li>
+                  <li><strong>Developer Trophies & Badges</strong>: Gamified achievement evaluator awarding badges based on test performance.</li>
+                </ul>
+              </div>
+
+              <div class="docs-card">
+                <h3>Version 1.0.0 (Foundation)</h3>
+                <ul class="docs-list">
+                  <li><strong>Core Zero-Dependency Architecture</strong>: Pure Python 3 standard library backend with zero pip requirements.</li>
+                  <li><strong>Universal Ingestion</strong>: Built parsers for cURL, Postman Collections v2/v2.1, RFC 7230 <code>.http</code>, and Markdown.</li>
+                  <li><strong>Autonomous DAG Topological Engine</strong>: Automatically orders endpoints by lifecycle tier and resolves variable dependencies.</li>
+                  <li><strong>Multi-Environment Vault</strong>: Secure SQLite-backed variable storage with macro generators.</li>
+                  <li><strong>Multi-Format Exporter</strong>: One-click export to cURL, Raw HTTP, Fetch, Python stdlib, and Postman JSON.</li>
+                </ul>
+              </div>
+            </div>
+
+            <!-- 10. Architecture & DAG -->
             <div id="docs-sec-architecture" class="docs-section-panel">
               <div class="docs-panel-header">
                 <h2>🏰 Architecture & Autonomous DAG Solver</h2>
@@ -544,7 +1088,7 @@
               </div>
             </div>
 
-            <!-- Section 3: QA & Test Strategy -->
+            <!-- 11. QA & Test Strategy -->
             <div id="docs-sec-qa_playbook" class="docs-section-panel">
               <div class="docs-panel-header">
                 <h2>🧪 QA Playbook & Multi-Way Test Advisor</h2>
@@ -621,7 +1165,7 @@
               </div>
             </div>
 
-            <!-- Section 4: REST API Reference -->
+            <!-- 12. REST API Reference -->
             <div id="docs-sec-api_ref" class="docs-section-panel">
               <div class="docs-panel-header">
                 <h2>💻 Internal Play House REST API Reference</h2>
@@ -708,7 +1252,7 @@
               </div>
             </div>
 
-            <!-- Section 5: Live Project Documentation -->
+            <!-- 13. Live Repository Documentation -->
             <div id="docs-sec-live_docs" class="docs-section-panel">
               <div class="docs-panel-header">
                 <h2>📄 Live Project Documentation</h2>
@@ -732,6 +1276,89 @@
                 <pre><code id="live-doc-raw">// Loading documentation...</code></pre>
               </div>
             </div>
+
+            <!-- 14. Contributing Guide -->
+            <div id="docs-sec-contributing" class="docs-section-panel">
+              <div class="docs-panel-header">
+                <h2>🤝 Contributing Guidelines</h2>
+                <span class="badge-pill">Open-Source Community</span>
+              </div>
+
+              <div class="docs-card">
+                <h3>Welcome Contributors!</h3>
+                <p>
+                  Contributions are warmly welcomed! Whether you are fixing bugs, improving documentation, adding new import formats, or creating new game themes, please follow our architectural standards:
+                </p>
+                <div class="doc-checklist">
+                  <div class="check-item">🛡️ <strong>Zero 3rd-Party Dependencies</strong>: Backend code must rely 100% on the Python Standard Library. Never introduce <code>pip</code> packages into <code>backend/</code>.</div>
+                  <div class="check-item">📦 <strong>Clean Modular Subpackages</strong>: Group backend domain logic in <code>backend/&lt;domain&gt;/</code> with <code>__init__.py</code>.</div>
+                  <div class="check-item">🖥️ <strong>Vanilla ES6 Frontend</strong>: Group JavaScript into clean single-responsibility submodules in <code>frontend/js/modules/&lt;domain&gt;/</code>.</div>
+                  <div class="check-item">📖 <strong>Living Documentation Synchronization</strong>: Whenever modules or endpoints are added or modified, update <code>README.md</code>, <code>ARCHITECTURE.md</code>, <code>FAQ.md</code>, and <code>docs/API.md</code>.</div>
+                </div>
+
+                <h4>Pull Request Workflow</h4>
+                <ol class="docs-list" style="padding-left:24px;">
+                  <li>Fork the repository on GitHub.</li>
+                  <li>Create a feature branch: <code>git checkout -b feat/amazing-feature</code>.</li>
+                  <li>Verify all modules import cleanly without third-party packages: <code>python3 app.py --cli --min-hp 70</code>.</li>
+                  <li>Commit your changes with conventional commit prefixes: <code>git commit -m "feat: add GraphQL live explorer"</code>.</li>
+                  <li>Push to the branch and open a Pull Request.</li>
+                </ol>
+              </div>
+            </div>
+
+            <!-- 15. License -->
+            <div id="docs-sec-license" class="docs-section-panel">
+              <div class="docs-panel-header">
+                <h2>📜 Open-Source License</h2>
+                <span class="badge-pill">MIT License</span>
+              </div>
+
+              <div class="docs-card">
+                <h3>MIT License</h3>
+                <p>Copyright (c) 2026 Sunil Bakale and Dev API Play House Contributors.</p>
+                <p>
+                  Permission is hereby granted, free of charge, to any person obtaining a copy of this software and associated documentation files (the "Software"), to deal in the Software without restriction, including without limitation the rights to use, copy, modify, merge, publish, distribute, sublicense, and/or sell copies of the Software, and to permit persons to whom the Software is furnished to do so, subject to the following conditions:
+                </p>
+                <p>
+                  The above copyright notice and this permission notice shall be included in all copies or substantial portions of the Software.
+                </p>
+                <p>
+                  THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
+                </p>
+              </div>
+            </div>
+
+            <!-- 16. Owner & Authors -->
+            <div id="docs-sec-owner" class="docs-section-panel">
+              <div class="docs-panel-header">
+                <h2>👤 Project Owner & Authors</h2>
+                <span class="badge-pill">Creator & Community</span>
+              </div>
+
+              <div class="docs-card">
+                <h3>Creator & Lead Architect</h3>
+                <p>
+                  <strong>Sunil Bakale</strong> (<a href="https://github.com/sunil-bakale" target="_blank" rel="noopener noreferrer">@sunil-bakale</a>)
+                </p>
+                <p>
+                  Created as an open-source, community-driven initiative to bring gamified workflow automation, autonomous DAG dependency resolution, and zero-dependency reliability to modern API development and QA testing teams.
+                </p>
+                <div class="house-rooms-grid">
+                  <div class="room-card">
+                    <span class="room-icon">🌐</span>
+                    <h4>GitHub Repository</h4>
+                    <p><a href="https://github.com/sunil-bakale/dev-api-play-house" target="_blank" rel="noopener noreferrer">github.com/sunil-bakale/dev-api-play-house</a></p>
+                  </div>
+                  <div class="room-card">
+                    <span class="room-icon">💬</span>
+                    <h4>Community & Discussions</h4>
+                    <p>Open issues, feature suggestions, and community pull requests are welcome on GitHub.</p>
+                  </div>
+                </div>
+              </div>
+            </div>
+
           </div>
         </div>
       </section>

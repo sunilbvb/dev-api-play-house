@@ -4,7 +4,7 @@ export class DocsHubManager {
   constructor(app) {
     this.app = app;
     this.currentDoc = 'readme';
-    this.currentSection = 'setup';
+    this.currentSection = 'documentation';
     this.init();
   }
 
@@ -15,19 +15,9 @@ export class DocsHubManager {
   bindEvents() {
     // Sub-nav inside Docs tab
     document.querySelectorAll('.docs-nav-item').forEach(item => {
-      item.addEventListener('click', (e) => {
-        document.querySelectorAll('.docs-nav-item').forEach(i => i.classList.remove('active'));
-        document.querySelectorAll('.docs-section-panel').forEach(p => p.classList.remove('active'));
-
+      item.addEventListener('click', () => {
         const target = item.dataset.docsSection;
-        item.classList.add('active');
-        const panel = document.getElementById(`docs-sec-${target}`);
-        if (panel) panel.classList.add('active');
-        this.currentSection = target;
-
-        if (target === 'live_docs') {
-          this.loadLiveDoc(this.currentDoc);
-        }
+        this.switchSection(target);
       });
     });
 
@@ -45,7 +35,7 @@ export class DocsHubManager {
     const btnCopyDoc = document.getElementById('btn-copy-live-doc');
     if (btnCopyDoc) {
       btnCopyDoc.addEventListener('click', () => {
-        const text = document.getElementById('live-doc-raw').textContent;
+        const text = document.getElementById('live-doc-raw')?.textContent || '';
         navigator.clipboard.writeText(text);
         this.app.showToast('Copied document markdown to clipboard!', 'success');
       });
@@ -55,10 +45,40 @@ export class DocsHubManager {
     document.querySelectorAll('.btn-quick-copy').forEach(btn => {
       btn.addEventListener('click', () => {
         const cmd = btn.dataset.copyCmd;
-        navigator.clipboard.writeText(cmd);
-        this.app.showToast(`Copied: ${cmd}`, 'success');
+        if (cmd) {
+          navigator.clipboard.writeText(cmd);
+          this.app.showToast(`Copied: ${cmd}`, 'success');
+        }
       });
     });
+  }
+
+  switchSection(sectionId) {
+    if (!sectionId) sectionId = 'documentation';
+
+    // Highlight sidebar nav item
+    document.querySelectorAll('.docs-nav-item').forEach(i => {
+      if (i.dataset.docsSection === sectionId) {
+        i.classList.add('active');
+      } else {
+        i.classList.remove('active');
+      }
+    });
+
+    // Toggle content panels
+    document.querySelectorAll('.docs-section-panel').forEach(p => p.classList.remove('active'));
+    const panel = document.getElementById(`docs-sec-${sectionId}`);
+    if (panel) {
+      panel.classList.add('active');
+      const container = document.querySelector('.docs-content-container');
+      if (container) container.scrollTop = 0;
+    }
+
+    this.currentSection = sectionId;
+
+    if (sectionId === 'live_docs') {
+      this.loadLiveDoc(this.currentDoc);
+    }
   }
 
   async loadLiveDoc(docName) {

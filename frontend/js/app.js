@@ -43,6 +43,9 @@ class App {
   }
 
   initNavigation() {
+    this.currentPlayTab = 'studio';
+    const subbar = document.getElementById('playground-subbar');
+
     document.querySelectorAll('.nav-tab').forEach(tab => {
       tab.addEventListener('click', () => {
         document.querySelectorAll('.nav-tab').forEach(t => t.classList.remove('active'));
@@ -50,12 +53,49 @@ class App {
 
         tab.classList.add('active');
         const targetTab = tab.dataset.tab;
-        document.getElementById(`tab-${targetTab}`).classList.add('active');
+        const targetSec = tab.dataset.docsSec;
 
-        if (targetTab === 'workflow') {
-          this.workflow.analyzeCurrentWorkflow();
+        if (targetTab === 'playground') {
+          if (subbar) subbar.classList.remove('hidden');
+          const panel = document.getElementById(`tab-${this.currentPlayTab}`);
+          if (panel) panel.classList.add('active');
+          if (this.currentPlayTab === 'workflow') {
+            this.workflow.analyzeCurrentWorkflow();
+          }
         } else if (targetTab === 'docs') {
-          this.docsHub.loadLiveDoc(this.docsHub.currentDoc);
+          if (subbar) subbar.classList.add('hidden');
+          document.getElementById('tab-docs').classList.add('active');
+          this.docsHub.switchSection(targetSec || 'documentation');
+        } else {
+          if (subbar) subbar.classList.remove('hidden');
+          const panel = document.getElementById(`tab-${targetTab}`);
+          if (panel) panel.classList.add('active');
+        }
+      });
+    });
+
+    // Sub-nav for Playground modes (Studio, Workflow, Real-Time)
+    document.querySelectorAll('.subnav-btn').forEach(btn => {
+      btn.addEventListener('click', () => {
+        document.querySelectorAll('.subnav-btn').forEach(b => b.classList.remove('active'));
+        btn.classList.add('active');
+
+        const playTab = btn.dataset.playTab;
+        this.currentPlayTab = playTab;
+
+        document.querySelectorAll('.tab-panel').forEach(p => p.classList.remove('active'));
+        const panel = document.getElementById(`tab-${playTab}`);
+        if (panel) panel.classList.add('active');
+
+        // Ensure Playground in topbar is active
+        document.querySelectorAll('.nav-tab').forEach(t => t.classList.remove('active'));
+        const playNav = document.querySelector('.nav-tab[data-tab="playground"]');
+        if (playNav) playNav.classList.add('active');
+
+        if (subbar) subbar.classList.remove('hidden');
+
+        if (playTab === 'workflow') {
+          this.workflow.analyzeCurrentWorkflow();
         }
       });
     });
