@@ -1,0 +1,77 @@
+name: Dev API Play House CI
+
+on:
+  push:
+    branches: [ main ]
+  pull_request:
+    branches: [ main ]
+
+jobs:
+  test:
+    name: Test & Integrity Gate (${{ matrix.python-version }})
+    runs-on: ubuntu-latest
+    strategy:
+      fail-fast: false
+      matrix:
+        python-version: ["3.8", "3.10", "3.12"]
+
+    steps:
+      - name: Checkout Code
+        uses: actions/checkout@v4
+
+      - name: Set up Python ${{ matrix.python-version }}
+        uses: actions/setup-python@v5
+        with:
+          python-version: ${{ matrix.python-version }}
+
+      - name: Verify Zero Pip Dependencies Rule
+        run: |
+          echo "🔍 Verifying zero third-party dependencies policy..."
+          python -c "
+          import sys
+          from backend.parsers.openapi_parser import parse_openapi
+          from backend.parsers.curl_parser import parse_curl
+          from backend.parsers.postman_parser import parse_postman_collection
+          from backend.parsers.http_file_parser import parse_http_file
+          from backend.parsers.markdown_parser import parse_markdown
+          from backend.docs_generator.doc_engine import ApiDocGenerator
+          from backend.advisor.test_advisor import TestAdvisor
+          from backend.engine.executor import execute_request
+          from backend.engine.interpolator import interpolate_text
+          from backend.engine.dependency_graph import analyze_workflow_dag
+          from backend.chaos.chaos_engine import ChaosEngine
+          from backend.fuzzer.side_quests import SideQuestGenerator
+          print('✅ All backend modules import cleanly using standard library only!')
+          "
+
+      - name: Run Headless CI Quest Runner (House HP >= 70%)
+        run: |
+          echo "⚔️ Running Quest Pipeline integrity check..."
+          python app.py --cli --min-hp 70 --out ci_summary.json
+
+      - name: Validate HTML Structure
+        run: |
+          echo "🌐 Validating frontend HTML syntax..."
+          python -c "
+          import html.parser
+          class Validator(html.parser.HTMLParser):
+              def __init__(self):
+                  super().__init__()
+                  self.tags = []
+                  self.errors = []
+              def handle_starttag(self, tag, attrs):
+                  if tag not in ['img', 'br', 'hr', 'input', 'meta', 'link']:
+                      self.tags.append(tag)
+              def handle_endtag(self, tag):
+                  if tag not in ['img', 'br', 'hr', 'input', 'meta', 'link']:
+                      if not self.tags:
+                          self.errors.append('Unmatched end tag: ' + tag)
+                      else:
+                          self.tags.pop()
+
+          v = Validator()
+          with open('frontend/index.html', 'r', encoding='utf-8') as f:
+              v.feed(f.read())
+          assert len(v.errors) == 0, 'HTML syntax errors: ' + str(v.errors)
+          print('✅ HTML structure is valid!')
+          "

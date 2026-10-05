@@ -111,6 +111,24 @@ dev-api-play-house/
 │           └── exporter/       # Multi-format export modal
 ├── docs/
 │   └── API.md                  # REST API endpoint reference
+├── .github/
+│   ├── workflows/ci.yml        # GitHub Actions automated CI matrix
+│   ├── pull_request_template.md# PR review checklist
+│   └── ISSUE_TEMPLATE/         # Bug report & feature templates
 ├── ARCHITECTURE.md             # Technical design & sequence models
+├── CONTRIBUTING.md             # Branching rules, conventional commits & PR guide
+├── CODE_OF_CONDUCT.md          # Contributor Covenant code of conduct
+├── SECURITY.md                 # Zero-dependency security guarantee & reporting
 └── FAQ.md                      # Common questions and troubleshooting
 ```
+
+---
+
+## 🤝 Contributing & Branching Standards
+
+We welcome community contributions! Please review our [CONTRIBUTING.md](CONTRIBUTING.md) for full instructions:
+- **Protected Main Branch**: All changes arrive via Pull Requests. Never push directly to `main`.
+- **Branch Naming**: Prefix branches with `feat/`, `fix/`, `docs/`, `refactor/`, `test/`, or `chore/`.
+- **Zero Third-Party Dependencies**: Backend code must rely 100% on the Python Standard Library.
+- **Automated CI Integrity**: All PRs run automated tests against Python 3.8, 3.10, and 3.12 with House HP thresholds.
+

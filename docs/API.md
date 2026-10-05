@@ -78,5 +78,5 @@ The backend exposes the following REST endpoints:
 | `POST` | `/api/docs/generate` | Auto-generate GitHub Markdown spec with parameter tables, inferred JSON schemas, and QA checklist |
 | `POST` | `/api/advisor/analyze-test-ways` | Calculate exact count and definitions of test dimensions for an API |
 | `POST` | `/api/advisor/run-test-ways` | Execute matrix and grade API resilience score |
-| `GET` | `/api/docs/content?name={readme\|architecture\|faq\|api}` | Serve live markdown documentation directly into in-app Docs Hub |
+| `GET` | `/api/docs/content?name={readme\|architecture\|faq\|api\|contributing\|code_of_conduct\|security}` | Serve live repository markdown documentation directly into in-app Docs Hub |
 

@@ -89,3 +89,8 @@ flowchart TD
 ### 13. In-App Knowledge & Setup Hub (`frontend/index.html` & `backend/server.py`)
 - Provides immediate developer onboarding: server quickstart commands, CI flags, Game House architectural guides, REST API reference tables, and interactive live markdown viewer for repository documentation.
 
+### 14. Contributor CI & Branching Architecture (`.github/` & `CONTRIBUTING.md`)
+- Automated multi-version GitHub Actions CI test matrix enforcing the zero-dependency standard library constraint, headless CLI quest runner threshold (`--min-hp 70`), and HTML syntax validation across all PRs.
+- Feature-branch workflow (`feat/`, `fix/`, `docs/`, `refactor/`, `test/`) with protected `main` branch and conventional commit standards.
+
+

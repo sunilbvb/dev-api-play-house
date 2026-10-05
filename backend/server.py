@@ -181,7 +181,10 @@ class PlayhouseRequestHandler(http.server.SimpleHTTPRequestHandler):
                     "readme": os.path.join(root_dir, "README.md"),
                     "architecture": os.path.join(root_dir, "ARCHITECTURE.md"),
                     "faq": os.path.join(root_dir, "FAQ.md"),
-                    "api": os.path.join(root_dir, "docs", "API.md")
+                    "api": os.path.join(root_dir, "docs", "API.md"),
+                    "contributing": os.path.join(root_dir, "CONTRIBUTING.md"),
+                    "code_of_conduct": os.path.join(root_dir, "CODE_OF_CONDUCT.md"),
+                    "security": os.path.join(root_dir, "SECURITY.md")
                 }
                 target = file_map.get(doc_name)
                 if target and os.path.exists(target):

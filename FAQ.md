@@ -38,10 +38,17 @@ The Strategy Advisor inspects the API contract and calculates the exact count of
 Testers can execute all scenarios with 1 click to verify backend robustness.
 
 ### 7. Can I read server setup instructions and repository docs without leaving the browser?
-Yes. Click the **📖 Docs & Setup** tab in the top navigation bar. It opens the integrated Developer Knowledge Hub with:
+Yes. Click the **📖 Documentation** or **🚀 Server Setup** tab in the top navigation bar. It opens the integrated Developer Knowledge Hub with:
 - **Server Setup & CLI Guide**: Instructions for running the web studio, port customization, and headless CI runner flags (`--cli`, `--min-hp`, `--col`, `--chaos`, `--out`).
 - **Architecture & DAG**: Visual explanation of Game Rooms (Gates, Armory, Coliseum, Vault), variable chaining, House HP, and Raid Boss dynamics.
 - **QA & Test Strategy**: Multi-way test dimension explanations and chaos monkey settings.
 - **REST API Reference**: Full endpoint tables and curl examples.
-- **Live Markdown Docs**: Interactive reader that fetches and displays `README.md`, `ARCHITECTURE.md`, `FAQ.md`, and `docs/API.md` directly from the repository with one-click markdown copying.
+- **Live Markdown Docs**: Interactive reader that fetches and displays `README.md`, `ARCHITECTURE.md`, `FAQ.md`, `docs/API.md`, `CONTRIBUTING.md`, `CODE_OF_CONDUCT.md`, and `SECURITY.md` directly from the repository with one-click markdown copying.
+
+### 8. How can other developers contribute and what are the branching rules?
+Contributors should review [CONTRIBUTING.md](CONTRIBUTING.md):
+- **Branching Rules**: Do not commit directly to `main`. Branch off latest `main` with standard prefixes: `feat/<name>`, `fix/<name>`, `docs/<name>`, `refactor/<name>`, `test/<name>`, `chore/<name>`.
+- **Zero-Pip Constraint**: All backend code must use 100% Python Standard Library. Pull requests introducing third-party pip dependencies will be automatically rejected.
+- **CI Verification**: Run `python3 app.py --cli --min-hp 70` locally. Every Pull Request automatically triggers GitHub Actions CI verifying Python 3.8, 3.10, and 3.12 compatibility.
+
 
