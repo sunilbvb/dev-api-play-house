@@ -9,13 +9,17 @@ Thank you for your interest in contributing to **Dev API Play House**! This docu
 To ensure a stable codebase and smooth collaboration, we follow a feature-branch workflow:
 
 ### 1. Branch Roles
-* **`main`**: The production-ready branch. Protected branch.
-  - Never push directly to `main`.
-  - All changes must arrive via tested Pull Requests (PRs).
-  - Every commit on `main` must pass all CI integrity gates.
+* **`main`**: Production-ready release branch.
+  - Tagged stable releases (e.g. `v1.2.0`) live here.
+  - Protected branch — direct pushes are strictly prohibited.
+  - Releases are merged from `develop` after full test verification.
+* **`develop`**: Primary integration branch for active development.
+  - All new feature PRs and bug fixes are submitted against `develop`.
+  - Continuously tested via GitHub Actions CI.
 * **Feature & Fix Branches**:
-  - Always branch off the latest `main`: `git checkout main && git pull origin main && git checkout -b <branch-name>`
+  - Always branch off the latest `develop`: `git checkout develop && git pull origin develop && git checkout -b <branch-name>`
   - Keep branches focused on a single responsibility.
+  - Submit Pull Requests targeting the `develop` branch.
 
 ### 2. Branch Naming Conventions
 Use descriptive, lower-case branch names prefixed with the change type:
