@@ -80,3 +80,10 @@ The backend exposes the following REST endpoints:
 | `POST` | `/api/advisor/run-test-ways` | Execute matrix and grade API resilience score |
 | `GET` | `/api/docs/content?name={readme\|architecture\|faq\|api\|contributing\|code_of_conduct\|security}` | Serve live repository markdown documentation directly into in-app Docs Hub |
 
+## 10. Contextual Omni-Search Engine
+
+| Method | Endpoint | Description |
+|---|---|---|
+| `GET` | `/api/search?q={query}` | Multi-field contextual query ranking across URL endpoints, titles, request bodies, headers, chained variable extracts, and lifecycle rooms |
+
+

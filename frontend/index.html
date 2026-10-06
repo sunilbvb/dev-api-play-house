@@ -52,6 +52,9 @@
         <button id="btn-manage-env" class="btn-icon" title="Manage Environments & Variables">⚙️</button>
       </div>
 
+      <button id="btn-open-omni-search" class="btn btn-secondary" title="Omni Search APIs (Ctrl+K)">
+        <span class="icon">🔍</span> Search <kbd class="kbd-badge">Ctrl+K</kbd>
+      </button>
       <button id="btn-open-trophies" class="btn btn-secondary" title="View unlocked Developer Achievements & Badges">
         <span class="icon">🏆</span> Trophies
       </button>
@@ -1538,6 +1541,60 @@
       </div>
       <div class="modal-footer">
         <button class="btn btn-secondary" data-close="modal-trophies">Close</button>
+      </div>
+    </div>
+  <!-- Omni-Search Modal (Ctrl+K / Cmd+K) -->
+  <div id="modal-omni-search" class="modal-overlay hidden">
+    <div class="modal-card modal-xl omni-search-card">
+      <div class="omni-search-header">
+        <span class="omni-search-icon">🔍</span>
+        <input type="text" id="omni-search-input" class="omni-input" placeholder="Search APIs by keyword, endpoint, body payload, variable, or room... (e.g. /auth, jwt_token, raid, user)" autocomplete="off">
+        <span class="kbd-shortcut">ESC</span>
+        <button class="btn-close" data-close="modal-omni-search">✕</button>
+      </div>
+
+      <!-- Quick Filter Chips -->
+      <div class="omni-filters-bar">
+        <button class="search-filter-chip active" data-filter="all">All APIs</button>
+        <button class="search-filter-chip" data-filter="get">GET</button>
+        <button class="search-filter-chip" data-filter="post">POST</button>
+        <button class="search-filter-chip" data-filter="put">PUT</button>
+        <button class="search-filter-chip" data-filter="delete">DELETE</button>
+        <button class="search-filter-chip" data-filter="gates">🛡️ Gates & Auth</button>
+        <button class="search-filter-chip" data-filter="variables">📦 Variables</button>
+        <span id="omni-results-count" class="omni-count-label">0 APIs found</span>
+      </div>
+
+      <div class="omni-search-body">
+        <!-- Results List -->
+        <div id="omni-search-results" class="omni-results-list">
+          <!-- Rendered by JS -->
+        </div>
+
+        <!-- Quick Output Preview Drawer -->
+        <div id="omni-preview-drawer" class="omni-preview-drawer hidden">
+          <div class="omni-drawer-header">
+            <div style="display:flex; align-items:center; gap:8px;">
+              <span id="omni-drawer-status" class="status-badge status-idle">Ready</span>
+              <h4 id="omni-drawer-title">Response Output</h4>
+            </div>
+            <div style="display:flex; align-items:center; gap:8px;">
+              <span id="omni-drawer-time" class="meta-tag">0 ms</span>
+              <span id="omni-drawer-badge" class="meta-tag">Idle</span>
+              <button id="btn-close-omni-drawer" class="btn-xs">✕ Close Preview</button>
+            </div>
+          </div>
+          <pre class="omni-drawer-code"><code id="omni-drawer-body">// Response output preview will appear here</code></pre>
+        </div>
+      </div>
+
+      <div class="omni-footer">
+        <div class="omni-shortcuts-hint">
+          <span><kbd class="kbd-key">↑</kbd> <kbd class="kbd-key">↓</kbd> Navigate</span>
+          <span><kbd class="kbd-key">↵</kbd> Open in Studio</span>
+          <span><kbd class="kbd-key">ESC</kbd> Close</span>
+        </div>
+        <span style="font-size:11px; color:var(--text-muted);">Matches endpoints, payloads, chained variables & lifecycle rooms</span>
       </div>
     </div>
   </div>

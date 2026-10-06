@@ -50,9 +50,19 @@ export class Explorer {
       const colReqs = this.requests.filter(r => r.collection_id === col.id);
       const filteredReqs = colReqs.filter(r => {
         if (!query) return true;
-        return (r.name && r.name.toLowerCase().includes(query)) ||
-               (r.url && r.url.toLowerCase().includes(query)) ||
-               (r.method && r.method.toLowerCase().includes(query));
+        const name = (r.name || '').toLowerCase();
+        const url = (r.url || '').toLowerCase();
+        const method = (r.method || '').toLowerCase();
+        const body = (r.body || '').toLowerCase();
+        const headers = JSON.stringify(r.headers || {}).toLowerCase();
+        const extracts = JSON.stringify(r.extracts || []).toLowerCase();
+
+        return name.includes(query) ||
+               url.includes(query) ||
+               method.includes(query) ||
+               body.includes(query) ||
+               headers.includes(query) ||
+               extracts.includes(query);
       });
 
       if (query && filteredReqs.length === 0 && !col.name.toLowerCase().includes(query)) {

@@ -38,6 +38,7 @@ from .exporters import (
     to_python_urllib,
     to_postman_collection
 )
+from .search import ContextualSearchEngine
 
 FRONTEND_DIR = os.path.join(os.path.dirname(os.path.dirname(os.path.abspath(__file__))), "frontend")
 
@@ -173,6 +174,20 @@ class PlayhouseRequestHandler(http.server.SimpleHTTPRequestHandler):
 
             elif path == "/api/replay/frames":
                 self._send_json(ReplayRecorder.get_frames())
+
+            elif path == "/api/search":
+                search_query = query.get("q", [""])[0]
+                cursor.execute("SELECT * FROM requests ORDER BY id ASC")
+                req_rows = [dict(r) for r in cursor.fetchall()]
+                cursor.execute("SELECT * FROM collections ORDER BY id ASC")
+                col_rows = [dict(c) for c in cursor.fetchall()]
+
+                results = ContextualSearchEngine.search(req_rows, col_rows, search_query)
+                self._send_json({
+                    "query": search_query,
+                    "total_matches": len(results),
+                    "results": results
+                })
 
             elif path == "/api/docs/content":
                 doc_name = query.get("name", ["readme"])[0].lower()

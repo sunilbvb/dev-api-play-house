@@ -55,6 +55,10 @@
    - Integrated `Docs & Setup` tab directly inside the UI.
    - Quickstart server setup, CLI flags guide, Game House architectural manuals, REST API reference tables, and interactive live markdown viewer for repository documentation.
 
+14. **🔍 Contextual Omni-Search Engine (`Ctrl+K`)**:
+   - Multi-token ranking engine matching queries across URL endpoints, titles, JSON request bodies, header maps, chained variable extractions, and lifecycle room categories.
+   - Global spotlight command palette with instant method filters (`GET`, `POST`, etc.) and 1-click test execution drawer with live formatted output preview.
+
 ---
 
 ## ⚡ Quick Start

@@ -12,6 +12,7 @@ import { DocManager } from './modules/docs/doc_manager.js';
 import { AdvisorManager } from './modules/advisor/advisor_manager.js';
 import { RealtimeStudio } from './modules/realtime/realtime_studio.js';
 import { DocsHubManager } from './modules/docs_hub/docs_hub.js';
+import { OmniSearch } from './modules/search/omni_search.js';
 
 class App {
   constructor() {
@@ -32,6 +33,7 @@ class App {
     this.advisor = new AdvisorManager(this);
     this.realtime = new RealtimeStudio(this);
     this.docsHub = new DocsHubManager(this);
+    this.search = new OmniSearch(this);
 
     this.initNavigation();
   }

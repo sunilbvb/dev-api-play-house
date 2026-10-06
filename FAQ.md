@@ -51,4 +51,11 @@ Contributors should review [CONTRIBUTING.md](CONTRIBUTING.md):
 - **Zero-Pip Constraint**: All backend code must use 100% Python Standard Library. Pull requests introducing third-party pip dependencies will be automatically rejected.
 - **CI Verification**: Run `python3 app.py --cli --min-hp 70` locally. Every Pull Request automatically triggers GitHub Actions CI verifying Python 3.8, 3.10, and 3.12 compatibility.
 
+### 9. How do I use the Contextual Omni-Search Engine?
+Press `Ctrl+K` (or `Cmd+K` on macOS) anywhere in the application, or click the **🔍 Search APIs (Ctrl+K)** button in the top navigation bar.
+- **Contextual Matching**: Searches across API titles, endpoint URLs, request payload bodies, headers, chained extracted variables, and lifecycle rooms.
+- **Filter Chips**: Refine results by HTTP method (`GET`, `POST`, `PUT`, `DELETE`), lifecycle room (`Gates & Auth`), or chained variables.
+- **Quick Test & Output Preview**: Click any result to view details and execute a live **⚡ Quick Test** right inside the preview drawer without leaving your search workflow.
+
+
 

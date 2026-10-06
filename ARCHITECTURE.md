@@ -93,4 +93,10 @@ flowchart TD
 - Automated multi-version GitHub Actions CI test matrix enforcing the zero-dependency standard library constraint, headless CLI quest runner threshold (`--min-hp 70`), and HTML syntax validation across all PRs.
 - Feature-branch workflow (`feat/`, `fix/`, `docs/`, `refactor/`, `test/`) with protected `main` branch and conventional commit standards.
 
+### 15. Contextual Omni-Search Engine (`backend/search/` & `frontend/js/modules/search/`)
+- Multi-token ranking engine matching queries across URL endpoints, titles, JSON request bodies, header maps, chained variable extractions, and lifecycle room categories.
+- Global `Ctrl+K` (or `Cmd+K`) spotlight command palette with method filter chips (`All`, `GET`, `POST`, `PUT`, `DELETE`, `Gates & Auth`, `Variables`).
+- Instant 1-click test execution drawer showing live response status, latency, and formatted output without leaving the search dialog.
+
+
 
