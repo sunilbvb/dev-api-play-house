@@ -42,6 +42,22 @@ class App {
     await this.envManager.loadEnvironments();
     await this.explorer.loadData();
     console.log("🎮 Dev API Play House initialized!");
+
+    // Deep-linking URL query parameters
+    const params = new URLSearchParams(window.location.search);
+    const tabParam = params.get('tab');
+    if (tabParam === 'workflow') {
+      const btn = document.querySelector('.subnav-btn[data-play-tab="workflow"]');
+      if (btn) btn.click();
+    } else if (tabParam === 'realtime') {
+      const btn = document.querySelector('.subnav-btn[data-play-tab="realtime"]');
+      if (btn) btn.click();
+    } else if (tabParam === 'docs') {
+      const tab = document.querySelector('.nav-tab[data-tab="docs"]');
+      if (tab) tab.click();
+    } else if (tabParam === 'search') {
+      if (this.search) this.search.open();
+    }
   }
 
   initNavigation() {

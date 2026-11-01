@@ -2,6 +2,14 @@
 
 > Open-source, zero-dependency API playground, multi-format importer, and game workflow DAG engine.
 
+<p align="center">
+  <img src="docs/demo.gif" alt="Dev API Play House Demo" width="100%" style="border-radius: 8px; box-shadow: 0 4px 20px rgba(0,0,0,0.5);" />
+</p>
+
+<p align="center">
+  <em>⭐ If this project saves you time or levels up your API workflows, please consider starring the repository! ⭐</em>
+</p>
+
 ---
 
 ## 🚀 Key Features

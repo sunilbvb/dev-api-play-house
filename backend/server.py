@@ -796,6 +796,7 @@ class PlayhouseRequestHandler(http.server.SimpleHTTPRequestHandler):
 
 def run_server(port: int = 8000, host: str = "0.0.0.0"):
     init_db()
+    socketserver.TCPServer.allow_reuse_address = True
     with socketserver.TCPServer((host, port), PlayhouseRequestHandler) as httpd:
         print(f"🎮 Dev API Play House running at http://localhost:{port}")
         print(f"📂 Frontend assets served from: {FRONTEND_DIR}")
